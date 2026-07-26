@@ -1,0 +1,80 @@
+CarbonLens Enterprise Commercial License
+
+Copyright 2026 CarbonLens. All rights reserved.
+
+This license governs use of the software and materials contained in the
+"enterprise/" directory of this repository (the "Enterprise Software"),
+including but not limited to the dashboard, hosted API, compliance export
+tooling, and billing components. The Enterprise Software is separate and
+distinct from the open-source packages contained in "packages/", which are
+licensed independently under the Apache License, Version 2.0 (see LICENSE).
+
+1. Proprietary Software
+
+   The Enterprise Software is proprietary and confidential. It is NOT
+   open source and is NOT licensed under the Apache License, Version 2.0
+   or any other open-source license. No rights are granted to the
+   Enterprise Software except as expressly set forth in a separate,
+   signed commercial license agreement between you (or your organization)
+   and CarbonLens (a "Commercial Agreement").
+
+2. No License Without an Agreement
+
+   Absent a valid, active Commercial Agreement, you are not permitted to:
+
+     (a) access, use, copy, or execute the Enterprise Software;
+     (b) modify, adapt, translate, or create derivative works based on it;
+     (c) distribute, sublicense, sell, rent, lease, or otherwise transfer
+         it, or any portion of it, to any third party;
+     (d) reverse engineer, decompile, or disassemble it, except to the
+         extent such restriction is prohibited by applicable law;
+     (e) remove, obscure, or alter any proprietary notices contained
+         within it; or
+     (f) use it to build or offer a competing product or service.
+
+3. Evaluation Access
+
+   CarbonLens may, at its discretion, grant limited, revocable,
+   non-transferable trial or evaluation access to the Enterprise Software
+   for the sole purpose of evaluating it prior to entering into a
+   Commercial Agreement. Such access is governed by the specific terms
+   provided at the time it is granted and, absent other written terms,
+   is limited to internal, non-production evaluation only.
+
+4. Ownership
+
+   CarbonLens retains all right, title, and interest in and to the
+   Enterprise Software, including all associated intellectual property
+   rights. No rights are granted by implication, estoppel, or otherwise
+   except as expressly stated in a Commercial Agreement.
+
+5. Disclaimer of Warranty
+
+   EXCEPT AS EXPRESSLY STATED IN A COMMERCIAL AGREEMENT, THE ENTERPRISE
+   SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+   NON-INFRINGEMENT.
+
+6. Limitation of Liability
+
+   EXCEPT AS EXPRESSLY STATED IN A COMMERCIAL AGREEMENT, IN NO EVENT
+   SHALL CARBONLENS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY,
+   WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM,
+   OUT OF, OR IN CONNECTION WITH THE ENTERPRISE SOFTWARE OR THE USE OR
+   OTHER DEALINGS IN IT.
+
+7. Termination
+
+   Any access granted under Section 3 may be revoked by CarbonLens at
+   any time, for any reason, without notice. Upon termination or
+   expiration of any access or agreement, you must cease all use of the
+   Enterprise Software and destroy any copies in your possession.
+
+8. Contact
+
+   For commercial licensing, enterprise pricing, or to request an
+   evaluation, contact: CarbonlensSecurity@gmail.com
+
+   To report a security issue related to the Enterprise Software, see
+   SECURITY.md.
