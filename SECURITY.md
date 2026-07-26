@@ -11,7 +11,7 @@ The `enterprise/` components (dashboard, hosted API, compliance exports, billing
 Please don't open a public GitHub issue for security problems. Instead, use one of these:
 
 - GitHub Security Advisories (preferred): https://github.com/AAYUSHI003/carbon_lens/security/advisories/new
-*- Email: *
+- Email: CarbonlensSecurity@gmail.com
 
 A good report usually includes what's affected, how to reproduce it, and what the impact looks like — a proof-of-concept helps but isn't required. If you're not sure whether something counts as a security issue, send it anyway and we'll sort it out.
 
