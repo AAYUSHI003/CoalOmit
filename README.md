@@ -17,6 +17,20 @@ Est. CO2 / month*    128 kg              84 kg (-34%)    55 kg (-57%)
 
 *at your current traffic + regional grid intensity
 ```
+## ♻️ Why CAC?
+
+Today, most ML teams track:
+
+- Accuracy
+- Latency
+- Memory
+
+But very few track:
+
+- Energy consumption
+- Carbon emissions
+
+CAC helps developers make energy-aware deployment decisions by exposing these metrics alongside traditional performance benchmarks.
 
 ## 🚨 The Problem
 
