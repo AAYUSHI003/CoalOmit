@@ -48,6 +48,28 @@ CAC bridges this gap: bottom-up, workload-specific carbon metrics generated dire
 - **Carbon projection** — per-inference results projected to monthly kg CO2 using regional grid-intensity data.
 - **Enterprise dashboard** *(proprietary)* — historical trends, org-wide reporting, and CSRD/SB253-formatted compliance exports.
 
+## 🧩 Supported
+
+Frameworks
+
+- PyTorch
+- ONNX Runtime
+- Hugging Face Transformers
+
+Compression
+
+- Dynamic Quantization
+- Static Quantization
+- GPTQ
+- AWQ
+- Pruning
+- Distillation
+
+Coming Soon
+
+- TensorRT
+- TensorFlow
+
 ## 📦 Project Structure
 
 ```
