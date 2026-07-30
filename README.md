@@ -98,6 +98,29 @@ graph TD
 
 ---
 
+## Expected CLI Output
+
+The following illustrates how Carbon Lens is intended to present benchmark results once the core engine is implemented.
+
+```bash
+$ cac run examples/bert.py --methods int8,int4 --region IN
+
+────────────────────────────────────────────
+Carbon Lens Report
+────────────────────────────────────────────
+Method    Accuracy   Latency   Energy   CO₂
+FP32      94.2%      82 ms     1.28Wh   12.5kg
+INT8      93.8%      45 ms     0.67Wh    6.4kg
+INT4      91.6%      33 ms     0.48Wh    4.6kg
+
+Recommendation: INT8
+Reason:
+• 47% lower energy consumption
+• 49% lower estimated CO₂ emissions
+• Only 0.4% accuracy drop
+```
+---
+
 ## Current Implementation Status
 
 > [!CAUTION]
