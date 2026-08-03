@@ -1,0 +1,27 @@
+name: 'Carbon-Aware Compression Check'
+description: 'Run CAC profiling on PyTorch models and post carbon delta tables in pull requests'
+inputs:
+  model_path:
+    description: 'Path to PyTorch model Python file'
+    required: true
+  methods:
+    description: 'Quantization methods (comma-separated)'
+    required: false
+    default: 'int8,int4'
+  region:
+    description: 'ISO Region code for carbon grid intensity'
+    required: false
+    default: 'GLOBAL'
+  traffic:
+    description: 'Projected monthly inference volume'
+    required: false
+    default: '1000000'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    INPUT_MODEL_PATH: ${{ inputs.model_path }}
+    INPUT_METHODS: ${{ inputs.methods }}
+    INPUT_REGION: ${{ inputs.region }}
+    INPUT_TRAFFIC: ${{ inputs.traffic }}
