@@ -1,6 +1,6 @@
 {
   "name": "coalomit",
-  "pages_build_output_dir": "website",
+  "main": "src/index.js",
   "assets": {
     "directory": "./website"
   }
