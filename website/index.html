@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoalOmIT — Green AI for Every ML Team</title>
+  <meta name="description" content="CoalOmIT is an open-source toolkit that quantifies and reduces the carbon footprint of AI model compression. Built by ML engineers, for ML engineers." />
+  <meta property="og:title" content="CoalOmIT — Green AI for Every ML Team" />
+  <meta property="og:description" content="Measure. Compare. Reduce. The carbon cost of your AI models — in seconds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #060610;
+      --bg2:      #0d0d1a;
+      --green:    #00ff88;
+      --cyan:     #00d4ff;
+      --purple:   #7c3aed;
+      --text:     #e8e8f0;
+      --muted:    #6b7280;
+      --border:   rgba(255,255,255,0.07);
+      --card:     rgba(255,255,255,0.03);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── Canvas background ── */
+    #particles-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      background: rgba(6,6,16,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 900;
+      color: #000;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -1px;
+    }
+
+    .logo-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .logo-text span { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green);
+      color: #000 !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      font-size: 0.875rem !important;
+      transition: opacity 0.2s, transform 0.2s !important;
+    }
+
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,255,136,0.1);
+      border: 1px solid rgba(0,255,136,0.25);
+      color: var(--green);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: #000;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(0,255,136,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(0,255,136,0.5);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--card);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.06);
+      transform: translateY(-2px);
+    }
+
+    /* ── TERMINAL PREVIEW ── */
+    .terminal-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      width: 100%;
+      margin: 4rem auto 0;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .terminal {
+      background: #0d0d1a;
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(0,255,136,0.1), 0 40px 80px rgba(0,0,0,0.6);
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.2rem;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+
+    .terminal-title {
+      margin-left: auto;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .terminal-body {
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .t-prompt { color: var(--green); }
+    .t-cmd { color: var(--cyan); }
+    .t-dim { color: var(--muted); }
+    .t-head { color: var(--cyan); font-weight: 700; }
+    .t-base { color: #e8e8f0; }
+    .t-int8 { color: var(--green); }
+    .t-int4 { color: #f59e0b; }
+    .t-green { color: var(--green); }
+    .t-red { color: #f87171; }
+
+    table.term-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+    }
+
+    table.term-table th {
+      color: var(--cyan);
+      text-align: left;
+      padding: 0.3rem 0.8rem;
+      border-bottom: 1px solid rgba(0,212,255,0.2);
+      font-size: 0.78rem;
+    }
+
+    table.term-table td {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.78rem;
+    }
+
+    /* ── SECTION COMMON ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── FEATURES GRID ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(0,255,136,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(0,255,136,0.05);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .icon-green { background: rgba(0,255,136,0.1); }
+    .icon-cyan  { background: rgba(0,212,255,0.1); }
+    .icon-purple{ background: rgba(124,58,237,0.1);}
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      padding: 3rem 2rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      margin: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat {
+      text-align: center;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .stat-num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .step {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      transition: border-color 0.3s;
+    }
+
+    .step:hover { border-color: rgba(0,255,136,0.3); }
+
+    .step-num {
+      min-width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: #000;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .step-content h4 {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .step-content p { color: var(--muted); font-size: 0.9rem; }
+
+    .code-inline {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(0,255,136,0.1);
+      color: var(--green);
+      padding: 0.15rem 0.5rem;
+      border-radius: 5px;
+      font-size: 0.85rem;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center;
+      padding: 6rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-box {
+      max-width: 700px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(0,255,136,0.07), rgba(0,212,255,0.07));
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 1rem;
+    }
+
+    .cta-box p { color: var(--muted); margin-bottom: 2rem; font-size: 1.05rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--green); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">C⊘</div>
+    <span class="logo-text">Coal<span>OmIT</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://github.com/AAYUSHI003" target="_blank" class="nav-cta">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Open Source · Apache 2.0 · Live on GitHub
+  </div>
+
+  <h1>
+    Eliminate the <span class="highlight">Carbon Cost</span><br/>of Your AI Models
+  </h1>
+
+  <p class="hero-sub">
+    CoalOmIT is an open-source toolkit that quantifies the energy and CO₂ trade-offs of AI model compression — in seconds, right inside your existing workflow.
+  </p>
+
+  <div class="hero-actions">
+    <a href="https://github.com/AAYUSHI003/carbon_lens" target="_blank" class="btn-primary">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      View on GitHub
+    </a>
+    <a href="#how" class="btn-secondary">
+      See How It Works →
+    </a>
+  </div>
+
+  <!-- Terminal Preview -->
+  <div class="terminal-wrapper">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="terminal-title">coalomit — zsh — 80×24</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">❯</span> <span class="t-cmd">cac run model.py --methods int8,int4 --region IN</span></div>
+        <div class="t-dim">Loading model script: model.py</div>
+        <br/>
+        <div class="t-head">  Carbon-Aware Compression Report (Region: IN)</div>
+        <br/>
+        <table class="term-table">
+          <tr>
+            <th>Strategy</th>
+            <th>Accuracy</th>
+            <th>Latency (p50)</th>
+            <th>Energy / 1k</th>
+            <th>Est. CO2 / Mo</th>
+            <th>Size (MB)</th>
+          </tr>
+          <tr class="t-base">
+            <td>Baseline (FP32)</td>
+            <td>94.2%</td>
+            <td>42ms</td>
+            <td>0.021 kWh</td>
+            <td>128 kg</td>
+            <td>440 MB</td>
+          </tr>
+          <tr class="t-int8">
+            <td>INT8 Dynamic</td>
+            <td>93.8%</td>
+            <td class="t-green">27ms (-36%)</td>
+            <td>0.014 kWh</td>
+            <td class="t-green">84 kg (-34%)</td>
+            <td>110 MB</td>
+          </tr>
+          <tr class="t-int4">
+            <td>INT4 Weight-Only</td>
+            <td><span class="t-red">91.1%</span></td>
+            <td class="t-green">18ms (-57%)</td>
+            <td>0.009 kWh</td>
+            <td class="t-green">55 kg (-57%)</td>
+            <td>55 MB</td>
+          </tr>
+        </table>
+        <br/>
+        <div class="t-dim">* Projected for 1,000,000 monthly inferences.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row fade-in">
+  <div class="stat"><div class="stat-num">35+</div><div class="stat-label">Country Grid Datasets</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Compression Backends</div></div>
+  <div class="stat"><div class="stat-num">14</div><div class="stat-label">Unit Tests Passing</div></div>
+  <div class="stat"><div class="stat-num">1</div><div class="stat-label">CLI Command</div></div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <p class="section-label fade-in">What's inside</p>
+  <h2 class="section-title fade-in">Everything you need to build <span style="color:var(--green)">greener AI</span></h2>
+  <p class="section-sub fade-in">Three tightly integrated components that plug into your existing ML workflow — no new infrastructure required.</p>
+
+  <div class="features-grid">
+    <div class="feature-card fade-in">
+      <div class="feature-icon icon-green">⚙️</div>
+      <h3>cac-core — Measurement Engine</h3>
+      <p>Uses PyTorch 2.x native <code style="color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:0.82rem">FlopCounterMode</code> to accurately count hardware FLOPs per inference. Calculates energy using per-precision constants across FP32, INT8, and INT4 models. Maps energy to monthly CO₂ using regional grid intensity for 35+ countries.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feature-icon icon-cyan">💻</div>
+      <h3>cac-cli — Developer Tooling</h3>
+      <p>A beautiful Rich-powered terminal CLI. Run <code style="color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:0.82rem">cac run model.py</code> and get a color-coded trade-off matrix in seconds. Export as Markdown, JSON, or terminal table. Compare any model across quantization strategies side by side.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feature-icon icon-purple">🤖</div>
+      <h3>cac-action — CI/CD Integration</h3>
+      <p>A GitHub Action that automatically runs CoalOmIT on every pull request and posts a full carbon comparison table as a PR comment — before code merges to main. Green AI engineering becomes a default part of your review process.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <p class="section-label fade-in">Simple by design</p>
+  <h2 class="section-title fade-in">From model to CO₂ report <span style="color:var(--green)">in 3 steps</span></h2>
+  <p class="section-sub fade-in">CoalOmIT plugs into your existing PyTorch workflow. No new infrastructure. No API keys. Just results.</p>
+
+  <div class="steps">
+    <div class="step fade-in">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Install CoalOmIT</h4>
+        <p>Install via pip in seconds: <span class="code-inline">pip install -e packages/cac-core packages/cac-cli</span>. Works with any PyTorch 2.x model out of the box.</p>
+      </div>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Point it at your model</h4>
+        <p>Define a <span class="code-inline">model</span> and <span class="code-inline">sample_input</span> in a Python file. Then run: <span class="code-inline">cac run model.py --region US --methods int8,int4</span></p>
+      </div>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Get your carbon trade-off report</h4>
+        <p>CoalOmIT runs baseline + compressed benchmarks, calculates energy using FLOPs, and projects monthly CO₂ based on your deployment region's grid intensity. Choose table, markdown, or JSON output.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="text-align:center; max-width:700px;">
+  <p class="section-label fade-in" style="text-align:center">Built by engineers</p>
+  <h2 class="section-title fade-in">A student-led open source <span style="color:var(--green)">climate tech project</span></h2>
+  <p class="fade-in" style="color:var(--muted); font-size:1.05rem; margin-bottom:2rem">
+    CoalOmIT was built by a team of engineering students passionate about making AI sustainable. We believe green AI shouldn't require a PhD in climate science — it should be as simple as running a single command.
+  </p>
+  <a href="https://github.com/AAYUSHI003" target="_blank" class="btn-primary fade-in" style="display:inline-flex">
+    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+    Visit AAYUSHI003 on GitHub
+  </a>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-box fade-in">
+    <h2>Ready to <span style="color:var(--green)">omit carbon</span><br/>from your AI?</h2>
+    <p>Open source. Free forever. One command away.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="https://github.com/AAYUSHI003/carbon_lens" target="_blank" class="btn-primary">
+        ⭐ Star on GitHub
+      </a>
+      <a href="https://github.com/AAYUSHI003/carbon_lens/blob/main/docs/getting-started.md" target="_blank" class="btn-secondary">
+        Read the Docs
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built with ❤️ by <a href="https://github.com/AAYUSHI003" target="_blank">AAYUSHI003</a> and the CoalOmIT team · Open Source under Apache 2.0</p>
+</footer>
+
+<script>
+  // ── Particle Canvas ──
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.3,
+      dx: (Math.random() - 0.5) * 0.3,
+      dy: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random() * 0.5 + 0.1,
+      color: Math.random() > 0.5 ? '0,255,136' : '0,212,255'
+    };
+  }
+
+  function initParticles() {
+    particles = Array.from({ length: 80 }, createParticle);
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+    });
+    requestAnimationFrame(drawParticles);
+  }
+
+  resize();
+  initParticles();
+  drawParticles();
+  window.addEventListener('resize', () => { resize(); initParticles(); });
+
+  // ── Scroll fade-in ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
