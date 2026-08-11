@@ -1,4 +1,7 @@
 {
   "name": "coalomit",
-  "pages_build_output_dir": "website"
+  "pages_build_output_dir": "website",
+  "assets": {
+    "directory": "./website"
+  }
 }
