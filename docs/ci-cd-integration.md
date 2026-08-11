@@ -1,8 +1,8 @@
 # CI/CD Integration Guide
 
-Carbon Lens provides a ready-to-use GitHub Action (`cac-action`) to evaluate model PRs automatically.
+CoalOmIT provides a ready-to-use GitHub Action (`comit-action`) to evaluate model PRs automatically.
 
-## Workflow Example (`.github/workflows/cac.yml`)
+## Workflow Example (`.github/workflows/comit.yml`)
 
 ```yaml
 name: Carbon Compression Check
@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run Carbon Lens Check
-        uses: ./packages/cac-action
+      - name: Run CoalOmIT Check
+        uses: ./packages/comit-action
         with:
           model_path: 'models/classifier.py'
           region: 'US'

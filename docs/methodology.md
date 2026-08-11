@@ -1,6 +1,6 @@
 # Measurement Methodology
 
-Carbon Lens (CAC) combines hardware FLOP counting with regional carbon intensity data to calculate model carbon footprints.
+CoalOmIT (COMIT) combines hardware FLOP counting with regional carbon intensity data to calculate model carbon footprints.
 
 ## 1. Energy Footprint Calculation
 

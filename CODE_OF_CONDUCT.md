@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-We, as contributors and maintainers of Carbon Lens, pledge to make participation in our project a respectful, inclusive, and harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity or expression, level of experience, education, nationality, personal appearance, race, religion, or sexual identity and orientation.
+We, as contributors and maintainers of CoalOmIT, pledge to make participation in our project a respectful, inclusive, and harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity or expression, level of experience, education, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 We are committed to fostering an open, collaborative, and welcoming environment.
 

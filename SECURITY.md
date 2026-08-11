@@ -2,16 +2,16 @@
 
 ## Supported Versions
 
-We maintain the latest minor release of each open-source package (`cac-core`, `cac-cli`, `cac-action`). Older versions may receive security backports at our discretion, but we can't guarantee it, so if you're on an older release, please upgrade before filing a report — there's a good chance it's already fixed.
+We maintain the latest minor release of each open-source package (`comit-core`, `comit-cli`, `comit-action`). Older versions may receive security backports at our discretion, but we can't guarantee it, so if you're on an older release, please upgrade before filing a report — there's a good chance it's already fixed.
 
-The `enterprise/` components (dashboard, hosted API, compliance exports, billing) follow whatever support terms are in your CarbonLens agreement.
+The `enterprise/` components (dashboard, hosted API, compliance exports, billing) follow whatever support terms are in your CoalOmIT agreement.
 
 ## Reporting a Vulnerability
 
 Please don't open a public GitHub issue for security problems. Instead, use one of these:
 
 - GitHub Security Advisories (preferred): https://github.com/AAYUSHI003/carbon_lens/security/advisories/new
-- Email: CarbonlensSecurity@gmail.com
+- Email: CoalOmITSecurity@gmail.com
 
 A good report usually includes what's affected, how to reproduce it, and what the impact looks like — a proof-of-concept helps but isn't required. If you're not sure whether something counts as a security issue, send it anyway and we'll sort it out.
 
@@ -19,7 +19,7 @@ We'll acknowledge new reports within a few business days and follow up with an i
 
 ## What's In Scope
 
-- The open-source packages under `packages/`: `cac-core`, `cac-cli`, `cac-action`
+- The open-source packages under `packages/`: `comit-core`, `comit-cli`, `comit-action`
 - The GitHub Action itself
 - `enterprise/` — the dashboard, hosted API, compliance exports, and billing, for customers with a support agreement
 
@@ -27,13 +27,13 @@ Not really in scope: vulnerabilities that live entirely in a third-party depende
 
 ## A Note on Local Data
 
-`cac-core` and `cac-cli` are designed to run locally — model weights, activations, and benchmark output shouldn't leave your machine unless you've configured them to. If you find a path where that's not true (the grid-intensity lookups in `scripts/` are the most likely candidate, since they do reach out to the network), treat it as a security bug and report it, not just a functional one.
+`comit-core` and `comit-cli` are designed to run locally — model weights, activations, and benchmark output shouldn't leave your machine unless you've configured them to. If you find a path where that's not true (the grid-intensity lookups in `scripts/` are the most likely candidate, since they do reach out to the network), treat it as a security bug and report it, not just a functional one.
 
 The hosted enterprise API is a different story — data handling there is governed by your organization's agreement, so check with your account contact for the specifics, or route security-specific concerns through the channels above.
 
 ## Dependencies
 
-We pin dependency versions and run automated scanning to catch known CVEs early. Release artifacts for `cac-cli` and `cac-action` are built through CI from tagged commits, so if you're deploying in a sensitive environment, it's worth verifying checksums or signatures before you do.
+We pin dependency versions and run automated scanning to catch known CVEs early. Release artifacts for `comit-cli` and `comit-action` are built through CI from tagged commits, so if you're deploying in a sensitive environment, it's worth verifying checksums or signatures before you do.
 
 ## Thanks
 

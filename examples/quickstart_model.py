@@ -1,4 +1,4 @@
-# Copyright 2026 Carbon Lens Authors.
+# Copyright 2026 CoalOmIT Authors.
 # Licensed under the Apache License, Version 2.0.
 
 import torch
@@ -6,7 +6,7 @@ import torch.nn as nn
 
 
 class SampleClassifier(nn.Module):
-    """Sample PyTorch Neural Network for CAC Profiling."""
+    """Sample PyTorch Neural Network for COMIT Profiling."""
     def __init__(self):
         super().__init__()
         self.fc1 = nn.Linear(512, 256)
@@ -20,6 +20,6 @@ class SampleClassifier(nn.Module):
         return self.fc3(x)
 
 
-# CAC auto-detects 'model' and 'sample_input'
+# COMIT auto-detects 'model' and 'sample_input'
 model = SampleClassifier()
 sample_input = (torch.randn(1, 512),)

@@ -1,6 +1,6 @@
-# Carbon Lens — Full Implementation Plan
+# CoalOmIT — Full Implementation Plan
 
-Build the entire Carbon Lens (CAC) project from its current scaffold state to a working, installable toolkit.
+Build the entire CoalOmIT (COMIT) project from its current scaffold state to a working, installable toolkit.
 
 ## User Review Required
 
@@ -8,7 +8,7 @@ Build the entire Carbon Lens (CAC) project from its current scaffold state to a 
 > **Licensing**: The plan uses **Apache 2.0** for open-source packages and a proprietary placeholder for enterprise. Confirm this is your intended license.
 
 > [!IMPORTANT]
-> **Scope**: This plan implements the full open-source toolkit (`cac-core`, `cac-cli`, `cac-action`) plus docs and tests. The **enterprise tier** (dashboard, API, billing, compliance) is left as placeholder directories since it requires infrastructure decisions (database, hosting, frontend framework) that should be a separate project.
+> **Scope**: This plan implements the full open-source toolkit (`comit-core`, `comit-cli`, `comit-action`) plus docs and tests. The **enterprise tier** (dashboard, API, billing, compliance) is left as placeholder directories since it requires infrastructure decisions (database, hosting, frontend framework) that should be a separate project.
 
 ## Open Questions
 
@@ -29,31 +29,31 @@ Quick fixes to the existing scaffold before building.
 #### [MODIFY] Rename `benchmarks/methodolgy.md` → `benchmarks/methodology.md`
 - Fix the typo in the filename
 
-#### [DELETE] `packages/cac_core/` (underscore variant)
-- Remove the duplicate directory; keep only `packages/cac-core/`
+#### [DELETE] `packages/comit_core/` (underscore variant)
+- Remove the duplicate directory; keep only `packages/comit-core/`
 
 #### [MODIFY] Rename `carbon/grid-intensity.py` → `carbon/grid_intensity.py`
 - Hyphens are invalid in Python module names
 
 #### [NEW] Add `__init__.py` files to all Python packages
-- `packages/cac-core/src/cac_core/__init__.py`
-- `packages/cac-core/src/cac_core/quantize/__init__.py`
-- `packages/cac-core/src/cac_core/benchmark/__init__.py`
-- `packages/cac-core/src/cac_core/carbon/__init__.py`
-- `packages/cac-cli/src/cac_cli/__init__.py`
-- `packages/cac-cli/src/cac_cli/formatters/__init__.py`
+- `packages/comit-core/src/comit_core/__init__.py`
+- `packages/comit-core/src/comit_core/quantize/__init__.py`
+- `packages/comit-core/src/comit_core/benchmark/__init__.py`
+- `packages/comit-core/src/comit_core/carbon/__init__.py`
+- `packages/comit-cli/src/comit_cli/__init__.py`
+- `packages/comit-cli/src/comit_cli/formatters/__init__.py`
 
 ---
 
-### Phase 2: cac-core — The Engine
+### Phase 2: comit-core — The Engine
 
 The heart of the project. 3 submodules + 2 top-level modules.
 
-#### [MODIFY] [config.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/config.py)
-Configuration dataclass for a CAC run:
+#### [MODIFY] [config.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/config.py)
+Configuration dataclass for a COMIT run:
 ```python
 @dataclass
-class CACConfig:
+class COMITConfig:
     model_path: str                    # Path to the model script/file
     methods: list[str]                 # ["int8", "int4"]
     n_inference_runs: int = 100        # Number of inference runs for benchmarking
@@ -67,7 +67,7 @@ class CACConfig:
 
 #### Quantization Submodule (`quantize/`)
 
-#### [MODIFY] [base.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/quantize/base.py)
+#### [MODIFY] [base.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/quantize/base.py)
 Abstract base class for all quantization backends:
 ```python
 class Quantizer(ABC):
@@ -78,7 +78,7 @@ class Quantizer(ABC):
     def get_model_size_mb(self, model: nn.Module) -> float: ...
 ```
 
-#### [MODIFY] [int8.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/quantize/int8.py)
+#### [MODIFY] [int8.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/quantize/int8.py)
 INT8 dynamic quantization using `torch.ao.quantization`:
 ```python
 class Int8Quantizer(Quantizer):
@@ -88,13 +88,13 @@ class Int8Quantizer(Quantizer):
         )
 ```
 
-#### [MODIFY] [int4.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/quantize/int4.py)
+#### [MODIFY] [int4.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/quantize/int4.py)
 INT4 weight-only quantization. Uses simulated 4-bit packing (CPU-compatible) without requiring `torchao`/`bitsandbytes` as hard dependencies:
 - Packs weights into 4-bit representation
 - Provides a fallback that works on CPU
 - Optional: detect and use `torchao.quantization.int4_weight_only()` if available
 
-#### [NEW] [quantize/registry.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/quantize/registry.py)
+#### [NEW] [quantize/registry.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/quantize/registry.py)
 Registry pattern to look up quantizers by name:
 ```python
 QUANTIZERS = {"int8": Int8Quantizer, "int4": Int4Quantizer}
@@ -105,7 +105,7 @@ def get_quantizer(method: str) -> Quantizer: ...
 
 #### Benchmark Submodule (`benchmark/`)
 
-#### [MODIFY] [accuracy.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/benchmark/accuracy.py)
+#### [MODIFY] [accuracy.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/benchmark/accuracy.py)
 Measure accuracy delta between baseline and quantized models:
 ```python
 def measure_accuracy(model, dataloader, metric_fn) -> float: ...
@@ -114,7 +114,7 @@ def compare_accuracy(baseline_acc, quantized_acc) -> AccuracyResult: ...
 - `AccuracyResult` dataclass with `value`, `delta`, `delta_pct`
 - Supports custom metric functions (default: top-1 accuracy)
 
-#### [MODIFY] [latency.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/benchmark/latency.py)
+#### [MODIFY] [latency.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/benchmark/latency.py)
 Measure inference latency with warmup and statistics:
 ```python
 def measure_latency(model, sample_input, n_runs=100, warmup=10) -> LatencyResult: ...
@@ -123,7 +123,7 @@ def measure_latency(model, sample_input, n_runs=100, warmup=10) -> LatencyResult
 - Uses `time.perf_counter_ns()` for high-resolution timing
 - Warmup runs to stabilize measurements
 
-#### [MODIFY] [energy.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/benchmark/energy.py)
+#### [MODIFY] [energy.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/benchmark/energy.py)
 Estimate energy consumption using FLOP counting:
 ```python
 def estimate_energy(model, sample_input, n_inferences=1000, precision="fp32") -> EnergyResult: ...
@@ -137,7 +137,7 @@ def estimate_energy(model, sample_input, n_inferences=1000, precision="fp32") ->
 
 #### Carbon Submodule (`carbon/`)
 
-#### [MODIFY] [grid_intensity.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/carbon/grid_intensity.py)
+#### [MODIFY] [grid_intensity.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/carbon/grid_intensity.py)
 (Renamed from `grid-intensity.py`)
 
 Regional carbon intensity lookup:
@@ -145,10 +145,10 @@ Regional carbon intensity lookup:
 def get_grid_intensity(region: str = "GLOBAL") -> float:  # gCO2/kWh
 ```
 - Ships with a **static JSON dataset** (`data/grid_intensity.json`) of ~50 country/region averages
-- Supports optional live lookup via Electricity Maps API (if `CAC_ELECTRICITY_MAPS_TOKEN` env var is set)
+- Supports optional live lookup via Electricity Maps API (if `COMIT_ELECTRICITY_MAPS_TOKEN` env var is set)
 - Fallback: Global average ~475 gCO2/kWh
 
-#### [NEW] [carbon/data/grid_intensity.json](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/carbon/data/grid_intensity.json)
+#### [NEW] [carbon/data/grid_intensity.json](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/carbon/data/grid_intensity.json)
 Static dataset with entries like:
 ```json
 {
@@ -166,7 +166,7 @@ Static dataset with entries like:
 }
 ```
 
-#### [MODIFY] [projector.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/carbon/projector.py)
+#### [MODIFY] [projector.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/carbon/projector.py)
 Project per-inference energy to monthly CO2:
 ```python
 def project_monthly_co2(
@@ -181,7 +181,7 @@ def project_monthly_co2(
 
 #### Top-Level Modules
 
-#### [MODIFY] [report.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/report.py)
+#### [MODIFY] [report.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/report.py)
 Aggregate results from all submodules into a structured report:
 ```python
 @dataclass
@@ -193,29 +193,29 @@ class CompressionResult:
     carbon: CarbonProjection
     model_size_mb: float
 
-class CACReport:
+class COMITReport:
     results: list[CompressionResult]
-    config: CACConfig
+    config: COMITConfig
     def to_dict(self) -> dict: ...
     def to_rows(self) -> list[list[str]]: ...  # For table rendering
 ```
 
-#### [NEW] [pipeline.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/pipeline.py)
+#### [NEW] [pipeline.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/pipeline.py)
 Orchestrator that ties everything together:
 ```python
-def run_pipeline(model, sample_input, config: CACConfig,
-                 dataloader=None, metric_fn=None) -> CACReport: ...
+def run_pipeline(model, sample_input, config: COMITConfig,
+                 dataloader=None, metric_fn=None) -> COMITReport: ...
 ```
 1. Measure baseline (FP16/FP32)
 2. For each compression method: quantize → benchmark → project carbon
-3. Return `CACReport` with all results
+3. Return `COMITReport` with all results
 
 ---
 
-### Phase 3: cac-cli — Developer CLI
+### Phase 3: comit-cli — Developer CLI
 
-#### [MODIFY] [main.py](file:///c:/Users/hp/carbon_lens/packages/cac-cli/src/cac_cli/main.py)
-Click-based CLI with `cac run` command:
+#### [MODIFY] [main.py](file:///c:/Users/hp/carbon_lens/packages/comit-cli/src/comit_cli/main.py)
+Click-based CLI with `COMIT run` command:
 ```python
 @click.group()
 @click.version_option(version="0.1.0")
@@ -230,13 +230,13 @@ def cli(): ...
 def run(model_path, methods, region, traffic, fmt): ...
 ```
 
-#### [NEW] [formatters/table.py](file:///c:/Users/hp/carbon_lens/packages/cac-cli/src/cac_cli/formatters/table.py)
+#### [NEW] [formatters/table.py](file:///c:/Users/hp/carbon_lens/packages/comit-cli/src/comit_cli/formatters/table.py)
 Rich terminal table formatter:
 - Color-coded columns (green for improvements, red for degradation)
 - Shows accuracy, latency (p50), energy/1k inferences, est. CO2/month
 - Includes delta percentages vs. baseline
 
-#### [NEW] [formatters/markdown.py](file:///c:/Users/hp/carbon_lens/packages/cac-cli/src/cac_cli/formatters/markdown.py)
+#### [NEW] [formatters/markdown.py](file:///c:/Users/hp/carbon_lens/packages/comit-cli/src/comit_cli/formatters/markdown.py)
 Markdown table output (for PR comments, docs):
 ```markdown
 | Metric | Baseline (FP16) | INT8 | INT4 |
@@ -245,7 +245,7 @@ Markdown table output (for PR comments, docs):
 ...
 ```
 
-#### [NEW] [formatters/json_fmt.py](file:///c:/Users/hp/carbon_lens/packages/cac-cli/src/cac_cli/formatters/json_fmt.py)
+#### [NEW] [formatters/json_fmt.py](file:///c:/Users/hp/carbon_lens/packages/comit-cli/src/comit_cli/formatters/json_fmt.py)
 JSON output for programmatic consumption.
 
 ---
@@ -255,14 +255,14 @@ JSON output for programmatic consumption.
 #### [MODIFY] [pyproject.toml](file:///c:/Users/hp/carbon_lens/pyproject.toml) (root)
 Workspace-level metadata only (not installable itself).
 
-#### [MODIFY] [pyproject.toml](file:///c:/Users/hp/carbon_lens/packages/cac-core/pyproject.toml) (cac-core)
+#### [MODIFY] [pyproject.toml](file:///c:/Users/hp/carbon_lens/packages/comit-core/pyproject.toml) (comit-core)
 ```toml
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cac-core"
+name = "comit-core"
 version = "0.1.0"
 description = "Carbon-Aware Compression engine for ML models"
 requires-python = ">=3.9"
@@ -275,19 +275,19 @@ dependencies = [
 dev = ["pytest>=7.0", "pytest-cov"]
 ```
 
-#### [NEW] [pyproject.toml](file:///c:/Users/hp/carbon_lens/packages/cac-cli/pyproject.toml) (cac-cli)
+#### [NEW] [pyproject.toml](file:///c:/Users/hp/carbon_lens/packages/comit-cli/pyproject.toml) (comit-cli)
 ```toml
 [project]
-name = "cac-cli"
+name = "comit-cli"
 version = "0.1.0"
 dependencies = [
-    "cac-core>=0.1.0",
+    "comit-core>=0.1.0",
     "click>=8.1.0",
     "rich>=13.0.0",
 ]
 
 [project.scripts]
-cac = "cac_cli.main:cli"
+COMIT = "comit_cli.main:cli"
 ```
 
 ---
@@ -304,7 +304,7 @@ How energy and carbon are estimated: FLOP counting, per-precision energy constan
 How to add the GitHub Action to your workflow.
 
 #### [MODIFY] [docs/api-reference.md](file:///c:/Users/hp/carbon_lens/docs/api-reference.md)
-Python API reference for `cac-core` public classes and functions.
+Python API reference for `comit-core` public classes and functions.
 
 #### [MODIFY] [LICENSE](file:///c:/Users/hp/carbon_lens/LICENSE)
 Apache License 2.0 full text.
@@ -320,13 +320,13 @@ Initial v0.1.0 changelog entry.
 
 ---
 
-### Phase 6: cac-action — GitHub Action
+### Phase 6: comit-action — GitHub Action
 
-#### [MODIFY] [action.yml](file:///c:/Users/hp/carbon_lens/packages/cac-action/action.yml)
+#### [MODIFY] [action.yml](file:///c:/Users/hp/carbon_lens/packages/comit-action/action.yml)
 GitHub Action definition:
 ```yaml
 name: 'Carbon-Aware Compression Check'
-description: 'Run CAC and post carbon comparison table as a PR comment'
+description: 'Run COMIT and post carbon comparison table as a PR comment'
 inputs:
   model_path:
     description: 'Path to model script'
@@ -342,36 +342,36 @@ runs:
   image: 'Dockerfile'
 ```
 
-#### [MODIFY] [Dockerfile](file:///c:/Users/hp/carbon_lens/packages/cac-action/Dockerfile)
-Docker image based on Python 3.12 slim, installs cac-core + cac-cli, runs entrypoint.
+#### [MODIFY] [Dockerfile](file:///c:/Users/hp/carbon_lens/packages/comit-action/Dockerfile)
+Docker image based on Python 3.12 slim, installs comit-core + comit-cli, runs entrypoint.
 
-#### [NEW] [src/entrypoint.py](file:///c:/Users/hp/carbon_lens/packages/cac-action/src/entrypoint.py)
-Runs `cac run` with markdown output, posts result as a PR comment using GitHub API.
+#### [NEW] [src/entrypoint.py](file:///c:/Users/hp/carbon_lens/packages/comit-action/src/entrypoint.py)
+Runs `COMIT run` with markdown output, posts result as a PR comment using GitHub API.
 
 ---
 
 ### Phase 7: Tests
 
-#### [NEW] `packages/cac-core/tests/test_quantize.py`
+#### [NEW] `packages/comit-core/tests/test_quantize.py`
 - Test INT8 quantizer on a simple `nn.Linear` model
 - Test INT4 quantizer produces smaller model
 - Test quantizer registry lookup
 
-#### [NEW] `packages/cac-core/tests/test_benchmark.py`
+#### [NEW] `packages/comit-core/tests/test_benchmark.py`
 - Test latency measurement returns valid statistics
 - Test energy estimation returns positive values
 - Test accuracy measurement with a dummy metric
 
-#### [NEW] `packages/cac-core/tests/test_carbon.py`
+#### [NEW] `packages/comit-core/tests/test_carbon.py`
 - Test grid intensity lookup for known regions
 - Test CO2 projection math (known inputs → expected outputs)
 
-#### [NEW] `packages/cac-core/tests/test_pipeline.py`
+#### [NEW] `packages/comit-core/tests/test_pipeline.py`
 - End-to-end test: run pipeline on a small model, verify report structure
 
-#### [NEW] `packages/cac-cli/tests/test_cli.py`
+#### [NEW] `packages/comit-cli/tests/test_cli.py`
 - Test CLI `--help` output
-- Test `cac run` with a simple model file
+- Test `COMIT run` with a simple model file
 - Test each output format (table, markdown, json)
 
 ---
@@ -390,9 +390,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-      - run: pip install -e packages/cac-core[dev]
-      - run: pip install -e packages/cac-cli
-      - run: pytest packages/cac-core/tests/ packages/cac-cli/tests/ -v --cov
+      - run: pip install -e packages/comit-core[dev]
+      - run: pip install -e packages/comit-cli
+      - run: pytest packages/comit-core/tests/ packages/comit-cli/tests/ -v --cov
 ```
 
 #### [NEW] `.github/ISSUE_TEMPLATE/bug_report.md`
@@ -402,10 +402,10 @@ jobs:
 
 ## Dependency Summary
 
-| Package | cac-core | cac-cli | cac-action |
+| Package | comit-core | comit-cli | comit-action |
 |---------|----------|---------|------------|
-| `torch>=2.0` | Yes | (via cac-core) | (via cac-core) |
-| `requests>=2.28` | Yes | (via cac-core) | (via cac-core) |
+| `torch>=2.0` | Yes | (via comit-core) | (via comit-core) |
+| `requests>=2.28` | Yes | (via comit-core) | (via comit-core) |
 | `click>=8.1` | No | Yes | No |
 | `rich>=13.0` | No | Yes | No |
 | `pytest>=7.0` | Dev only | Dev only | No |
@@ -417,22 +417,22 @@ jobs:
 ### Automated Tests
 ```bash
 # Install packages in dev mode
-pip install -e packages/cac-core[dev]
-pip install -e packages/cac-cli
+pip install -e packages/comit-core[dev]
+pip install -e packages/comit-cli
 
 # Run all tests
-pytest packages/cac-core/tests/ packages/cac-cli/tests/ -v --cov
+pytest packages/comit-core/tests/ packages/comit-cli/tests/ -v --cov
 
 # Test CLI manually
-cac run examples/quickstart_model.py --methods int8,int4 --region IN --format table
-cac run examples/quickstart_model.py --format markdown
-cac run examples/quickstart_model.py --format json
+COMIT run examples/quickstart_model.py --methods int8,int4 --region IN --format table
+COMIT run examples/quickstart_model.py --format markdown
+COMIT run examples/quickstart_model.py --format json
 ```
 
 ### Manual Verification
-- Verify `pip install -e packages/cac-core` succeeds cleanly
-- Verify `pip install -e packages/cac-cli` succeeds and `cac` command is available
-- Verify `cac run` produces a formatted comparison table in the terminal
+- Verify `pip install -e packages/comit-core` succeeds cleanly
+- Verify `pip install -e packages/comit-cli` succeeds and `COMIT` command is available
+- Verify `COMIT run` produces a formatted comparison table in the terminal
 - Verify markdown output matches the format shown in the README
 - Verify JSON output is valid and parseable
 - Verify grid intensity lookup works for multiple regions

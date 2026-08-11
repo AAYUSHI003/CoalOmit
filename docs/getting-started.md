@@ -1,6 +1,5 @@
-# Getting Started with Carbon Lens (CAC)
-
-Carbon Lens is an open-source toolkit that profiles the accuracy, latency, energy, and carbon emissions of PyTorch models under different quantization strategies.
+# Getting Started with CoalOmIT (COMIT)
+CoalOmIT is an open-source toolkit that profiles the accuracy, latency, energy, and carbon emissions of PyTorch models under different quantization strategies.
 
 ## 1. Installation
 
@@ -10,7 +9,7 @@ git clone https://github.com/AAYUSHI003/carbon_lens.git
 cd carbon_lens
 
 # Install core engine & CLI in editable mode
-pip install -e packages/cac-core -e packages/cac-cli
+pip install -e packages/comit-core -e packages/comit-cli
 ```
 
 ## 2. Quickstart Usage
@@ -32,10 +31,10 @@ model = MyModel()
 sample_input = (torch.randn(1, 128),)
 ```
 
-Run the `cac` CLI command:
+Run the `comit` CLI command:
 
 ```bash
-cac run my_model.py --methods int8,int4 --region US --traffic 1000000
+comit run my_model.py --methods int8,int4 --region US --traffic 1000000
 ```
 
 ## 3. Command Options

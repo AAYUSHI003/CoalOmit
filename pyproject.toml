@@ -1,5 +1,5 @@
 [project]
-name = "carbon-lens"
+name = "coalomit"
 version = "0.1.0"
 description = "Carbon-Aware Compression toolkit for ML models"
 readme = "README.md"
@@ -7,7 +7,7 @@ requires-python = ">=3.9"
 license = {text = "Apache-2.0"}
 
 [tool.pytest.ini_options]
-testpaths = ["packages/cac-core/tests", "packages/cac-cli/tests"]
+testpaths = ["packages/comit-core/tests", "packages/comit-cli/tests"]
 python_files = ["test_*.py"]
 
 [tool.ruff]

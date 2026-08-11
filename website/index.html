@@ -584,10 +584,10 @@
         <span class="terminal-title">coalomit — zsh — 80×24</span>
       </div>
       <div class="terminal-body">
-        <div><span class="t-prompt">❯</span> <span class="t-cmd">cac run model.py --methods int8,int4 --region IN</span></div>
+        <div><span class="t-prompt">❯</span> <span class="t-cmd">comit run model.py --methods int8,int4 --region IN</span></div>
         <div class="t-dim">Loading model script: model.py</div>
         <br/>
-        <div class="t-head">  Carbon-Aware Compression Report (Region: IN)</div>
+        <div class="t-head">  CoalOmIT Report (Region: IN)</div>
         <br/>
         <table class="term-table">
           <tr>
@@ -647,17 +647,17 @@
   <div class="features-grid">
     <div class="feature-card fade-in">
       <div class="feature-icon icon-green">⚙️</div>
-      <h3>cac-core — Measurement Engine</h3>
+      <h3>comit-core — Measurement Engine</h3>
       <p>Uses PyTorch 2.x native <code style="color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:0.82rem">FlopCounterMode</code> to accurately count hardware FLOPs per inference. Calculates energy using per-precision constants across FP32, INT8, and INT4 models. Maps energy to monthly CO₂ using regional grid intensity for 35+ countries.</p>
     </div>
     <div class="feature-card fade-in">
       <div class="feature-icon icon-cyan">💻</div>
-      <h3>cac-cli — Developer Tooling</h3>
-      <p>A beautiful Rich-powered terminal CLI. Run <code style="color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:0.82rem">cac run model.py</code> and get a color-coded trade-off matrix in seconds. Export as Markdown, JSON, or terminal table. Compare any model across quantization strategies side by side.</p>
+      <h3>comit-cli — Developer Tooling</h3>
+      <p>A beautiful Rich-powered terminal CLI. Run <code style="color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:0.82rem">comit run model.py</code> and get a color-coded trade-off matrix in seconds. Export as Markdown, JSON, or terminal table. Compare any model across quantization strategies side by side.</p>
     </div>
     <div class="feature-card fade-in">
       <div class="feature-icon icon-purple">🤖</div>
-      <h3>cac-action — CI/CD Integration</h3>
+      <h3>comit-action — CI/CD Integration</h3>
       <p>A GitHub Action that automatically runs CoalOmIT on every pull request and posts a full carbon comparison table as a PR comment — before code merges to main. Green AI engineering becomes a default part of your review process.</p>
     </div>
   </div>
@@ -674,14 +674,14 @@
       <div class="step-num">1</div>
       <div class="step-content">
         <h4>Install CoalOmIT</h4>
-        <p>Install via pip in seconds: <span class="code-inline">pip install -e packages/cac-core packages/cac-cli</span>. Works with any PyTorch 2.x model out of the box.</p>
+        <p>Install via pip in seconds: <span class="code-inline">pip install -e packages/comit-core packages/comit-cli</span>. Works with any PyTorch 2.x model out of the box.</p>
       </div>
     </div>
     <div class="step fade-in">
       <div class="step-num">2</div>
       <div class="step-content">
         <h4>Point it at your model</h4>
-        <p>Define a <span class="code-inline">model</span> and <span class="code-inline">sample_input</span> in a Python file. Then run: <span class="code-inline">cac run model.py --region US --methods int8,int4</span></p>
+        <p>Define a <span class="code-inline">model</span> and <span class="code-inline">sample_input</span> in a Python file. Then run: <span class="code-inline">comit run model.py --region US --methods int8,int4</span></p>
       </div>
     </div>
     <div class="step fade-in">

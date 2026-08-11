@@ -2,7 +2,7 @@
 
 ## What Is It?
 
-**CoalOmIT** (formally **Carbon-Aware Compression / CAC**) is a developer-first toolkit designed to measure the **accuracy, latency, energy, and CO₂ trade-offs** of ML model compression techniques (quantization, pruning, distillation). It lets ML engineers see the carbon cost of their models *before* shipping them — the same way they already track accuracy and latency.
+**CoalOmIT** (formally **Carbon-Aware Compression / COMIT**) is a developer-first toolkit designed to measure the **accuracy, latency, energy, and CO₂ trade-offs** of ML model compression techniques (quantization, pruning, distillation). It lets ML engineers see the carbon cost of their models *before* shipping them — the same way they already track accuracy and latency.
 
 The project is structured as an **open-core** product:
 - An **open-source** developer toolkit (free CLI + core engine)
@@ -18,7 +18,7 @@ The project is structured as an **open-core** product:
 | **Sustainability / ESG Teams** | Only see aggregate cloud bills, not workload-level emissions — can't attribute energy use to a specific model, team, or PR |
 | **Result** | "Carbon bloat" silently accumulates across ML pipelines until it appears in a corporate audit, months too late to act on |
 
-CAC bridges the gap with bottom-up, workload-specific carbon metrics generated directly in the developer's environment and feeding into enterprise-grade reporting.
+COMIT bridges the gap with bottom-up, workload-specific carbon metrics generated directly in the developer's environment and feeding into enterprise-grade reporting.
 
 ---
 
@@ -26,23 +26,23 @@ CAC bridges the gap with bottom-up, workload-specific carbon metrics generated d
 
 ### Open-Source Packages (`packages/`)
 
-#### 1. `cac-core` — Compression & Measurement Engine
+#### 1. `comit-core` — Compression & Measurement Engine
 The heart of the project. Planned modules:
 
 | Submodule | Files | Purpose |
 |---|---|---|
-| `quantize/` | [base.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/quantize/base.py), [int8.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/quantize/int8.py), [int4.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/quantize/int4.py) | Apply INT8 / INT4 quantization to models, with a pluggable base class for GPTQ, AWQ, ONNX backends |
-| `benchmark/` | [accuracy.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/benchmark/accuracy.py), [latency.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/benchmark/latency.py), [energy.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/benchmark/energy.py) | Measure accuracy drop, p50/p99 latency, and energy (kWh) per inference batch |
-| `carbon/` | [grid-intensity.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/carbon/grid-intensity.py), [projector.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/carbon/projector.py) | Look up regional grid carbon intensity (gCO₂/kWh) and project per-inference energy to monthly kg CO₂ |
-| Top-level | [config.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/config.py), [report.py](file:///c:/Users/hp/carbon_lens/packages/cac-core/src/cac_core/report.py) | Configuration management and report generation |
+| `quantize/` | [base.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/quantize/base.py), [int8.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/quantize/int8.py), [int4.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/quantize/int4.py) | Apply INT8 / INT4 quantization to models, with a pluggable base class for GPTQ, AWQ, ONNX backends |
+| `benchmark/` | [accuracy.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/benchmark/accuracy.py), [latency.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/benchmark/latency.py), [energy.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/benchmark/energy.py) | Measure accuracy drop, p50/p99 latency, and energy (kWh) per inference batch |
+| `carbon/` | [grid-intensity.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/carbon/grid-intensity.py), [projector.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/carbon/projector.py) | Look up regional grid carbon intensity (gCO₂/kWh) and project per-inference energy to monthly kg CO₂ |
+| Top-level | [config.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/config.py), [report.py](file:///c:/Users/hp/carbon_lens/packages/comit-core/src/comit_core/report.py) | Configuration management and report generation |
 
-#### 2. `cac-cli` — Developer CLI
-- Entry point: [main.py](file:///c:/Users/hp/carbon_lens/packages/cac-cli/src/cac_cli/main.py)
+#### 2. `comit-cli` — Developer CLI
+- Entry point: [main.py](file:///c:/Users/hp/carbon_lens/packages/comit-cli/src/comit_cli/main.py)
 - Planned `formatters/` directory for terminal table, Markdown, and JSON output
-- Usage: `cac run model.py` → prints a comparison table (baseline vs. compressed variants)
+- Usage: `comit run model.py` → prints a comparison table (baseline vs. compressed variants)
 
-#### 3. `cac-action` — GitHub Action
-- [action.yml](file:///c:/Users/hp/carbon_lens/packages/cac-action/action.yml) + [Dockerfile](file:///c:/Users/hp/carbon_lens/packages/cac-action/Dockerfile)
+#### 3. `comit-action` — GitHub Action
+- [action.yml](file:///c:/Users/hp/carbon_lens/packages/comit-action/action.yml) + [Dockerfile](file:///c:/Users/hp/carbon_lens/packages/comit-action/Dockerfile)
 - Posts a before/after carbon comparison table as a PR comment on every pull request
 
 ### Enterprise Tier (`enterprise/`) — Proprietary
@@ -70,9 +70,9 @@ The heart of the project. Planned modules:
 ```mermaid
 graph TD
     subgraph "Open Source"
-        CLI["cac-cli<br/>Developer CLI"]
-        CORE["cac-core<br/>Engine"]
-        ACTION["cac-action<br/>GitHub Action"]
+        CLI["comit-cli<br/>Developer CLI"]
+        CORE["comit-core<br/>Engine"]
+        ACTION["comit-action<br/>GitHub Action"]
         
         CLI --> CORE
         ACTION --> CORE
@@ -100,13 +100,13 @@ graph TD
 
 ## Expected CLI Output
 
-The following illustrates how Carbon Lens is intended to present benchmark results once the core engine is implemented.
+The following illustrates how CoalOmIT is intended to present benchmark results once the core engine is implemented.
 
 ```bash
-$ cac run examples/bert.py --methods int8,int4 --region IN
+$ comit run examples/bert.py --methods int8,int4 --region IN
 
 ────────────────────────────────────────────
-Carbon Lens Report
+CoalOmIT Report
 ────────────────────────────────────────────
 Method    Accuracy   Latency   Energy   CO₂
 FP32      94.2%      82 ms     1.28Wh   12.5kg
@@ -135,8 +135,8 @@ Reason:
 | [.gitignore](file:///c:/Users/hp/carbon_lens/.gitignore) | ✅ Standard Python gitignore |
 
 ### What is empty (0 bytes):
-- **All 14 Python source files** across `cac-core`, `cac-cli`
-- **All configuration files**: `pyproject.toml` (root + cac-core), `action.yml`, `Dockerfile`
+- **All 14 Python source files** across `comit-core`, `comit-cli`
+- **All configuration files**: `pyproject.toml` (root + comit-core), `action.yml`, `Dockerfile`
 - **All 4 documentation files** in `docs/`
 - **All supporting files**: `CONTRIBUTING.md`, `CHANGELOG.md`, `LICENSE`, `LICENSE-COMMERCIAL`, `benchmarks/methodolgy.md`
 - **All enterprise directories**: `api/`, `billing/`, `compliance-export/`, `dashboard-web/` — completely empty
@@ -155,7 +155,7 @@ The README calls out three regulatory frameworks driving demand:
 | **SEC Climate Disclosure** | US Securities and Exchange Commission climate risk disclosure rules |
 | **India BRSR** | Business Responsibility and Sustainability Reporting — moving toward mandatory Scope 3 disclosure |
 
-CAC positions itself as providing the workload-level data these compliance reports actually need, rather than relying on aggregate cloud billing as a proxy.
+COMIT positions itself as providing the workload-level data these compliance reports actually need, rather than relying on aggregate cloud billing as a proxy.
 
 ---
 
