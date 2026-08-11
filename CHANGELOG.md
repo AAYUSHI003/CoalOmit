@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to CoalOmIT will be documented in this file.
+All notable changes to CoalOmit will be documented in this file.
 
 ## [0.1.0] - 2026-08-03
 ### Added

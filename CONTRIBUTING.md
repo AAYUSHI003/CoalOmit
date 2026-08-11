@@ -1,4 +1,4 @@
-# Contributing to CoalOmIT
+# Contributing to CoalOmit
 
 We welcome contributions!
 

@@ -1,5 +1,5 @@
 {
-  "name": "coalomit",
+  "name": "CoalOmit",
   "main": "src/index.js",
   "assets": {
     "directory": "./website"

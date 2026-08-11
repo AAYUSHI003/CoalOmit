@@ -9,7 +9,7 @@ description = "Carbon-Aware Compression engine for ML models"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "Apache-2.0"}
-authors = [{name = "CoalOmIT Authors"}]
+authors = [{name = "CoalOmit Authors"}]
 dependencies = [
     "torch>=2.0.0",
     "requests>=2.28.0",

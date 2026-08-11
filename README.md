@@ -1,8 +1,8 @@
-# CoalOmIT — Project Analysis & Summary
+# CoalOmit — Project Analysis & Summary
 
 ## What Is It?
 
-**CoalOmIT** is a developer-first toolkit designed to measure the **accuracy, latency, energy, and CO₂ trade-offs** of ML model compression techniques (quantization, pruning, distillation). It lets ML engineers see the carbon cost of their models *before* shipping them — the same way they already track accuracy and latency.
+**CoalOmit** is a developer-first toolkit designed to measure the **accuracy, latency, energy, and CO₂ trade-offs** of ML model compression techniques (quantization, pruning, distillation). It lets ML engineers see the carbon cost of their models *before* shipping them — the same way they already track accuracy and latency.
 
 The project is structured as an **open-core** product:
 - An **open-source** developer toolkit (free CLI + core engine)
@@ -100,13 +100,13 @@ graph TD
 
 ## Expected CLI Output
 
-The following illustrates how CoalOmIT is intended to present benchmark results once the core engine is implemented.
+The following illustrates how CoalOmit is intended to present benchmark results once the core engine is implemented.
 
 ```bash
 $ comit run examples/bert.py --methods int8,int4 --region IN
 
 ────────────────────────────────────────────
-CoalOmIT Report
+CoalOmit Report
 ────────────────────────────────────────────
 Method    Accuracy   Latency   Energy   CO₂
 FP32      94.2%      82 ms     1.28Wh   12.5kg

@@ -1,8 +1,8 @@
-# CoalOmIT — Project Analysis & Summary
+# CoalOmit — Project Analysis & Summary
 
 ## What Is It?
 
-**CoalOmIT** (formally **Carbon-Aware Compression / COMIT**) is a developer-first toolkit designed to measure the **accuracy, latency, energy, and CO₂ trade-offs** of ML model compression techniques (quantization, pruning, distillation). It lets ML engineers see the carbon cost of their models *before* shipping them — the same way they already track accuracy and latency.
+**CoalOmit** (formally **Carbon-Aware Compression / COMIT**) is a developer-first toolkit designed to measure the **accuracy, latency, energy, and CO₂ trade-offs** of ML model compression techniques (quantization, pruning, distillation). It lets ML engineers see the carbon cost of their models *before* shipping them — the same way they already track accuracy and latency.
 
 The project is structured as an **open-core** product:
 - An **open-source** developer toolkit (free CLI + core engine)

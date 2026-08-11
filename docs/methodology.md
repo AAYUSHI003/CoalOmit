@@ -1,6 +1,6 @@
 # Measurement Methodology
 
-CoalOmIT (COMIT) combines hardware FLOP counting with regional carbon intensity data to calculate model carbon footprints.
+CoalOmit (COMIT) combines hardware FLOP counting with regional carbon intensity data to calculate model carbon footprints.
 
 ## 1. Energy Footprint Calculation
 
