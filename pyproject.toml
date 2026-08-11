@@ -1,5 +1,5 @@
 [project]
-name = "coalomit"
+name = "CoalOmit"
 version = "0.1.0"
 description = "Carbon-Aware Compression toolkit for ML models"
 readme = "README.md"

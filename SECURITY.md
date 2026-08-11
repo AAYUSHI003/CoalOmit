@@ -4,14 +4,14 @@
 
 We maintain the latest minor release of each open-source package (`comit-core`, `comit-cli`, `comit-action`). Older versions may receive security backports at our discretion, but we can't guarantee it, so if you're on an older release, please upgrade before filing a report — there's a good chance it's already fixed.
 
-The `enterprise/` components (dashboard, hosted API, compliance exports, billing) follow whatever support terms are in your CoalOmIT agreement.
+The `enterprise/` components (dashboard, hosted API, compliance exports, billing) follow whatever support terms are in your CoalOmit agreement.
 
 ## Reporting a Vulnerability
 
 Please don't open a public GitHub issue for security problems. Instead, use one of these:
 
 - GitHub Security Advisories (preferred): https://github.com/AAYUSHI003/carbon_lens/security/advisories/new
-- Email: CoalOmITSecurity@gmail.com
+- Email: CoalOmitSecurity@gmail.com
 
 A good report usually includes what's affected, how to reproduce it, and what the impact looks like — a proof-of-concept helps but isn't required. If you're not sure whether something counts as a security issue, send it anyway and we'll sort it out.
 

@@ -1,5 +1,5 @@
-# Getting Started with CoalOmIT (COMIT)
-CoalOmIT is an open-source toolkit that profiles the accuracy, latency, energy, and carbon emissions of PyTorch models under different quantization strategies.
+# Getting Started with CoalOmit (COMIT)
+CoalOmit is an open-source toolkit that profiles the accuracy, latency, energy, and carbon emissions of PyTorch models under different quantization strategies.
 
 ## 1. Installation
 

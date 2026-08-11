@@ -1,6 +1,6 @@
-# CoalOmIT — Full Implementation Plan
+# CoalOmit — Full Implementation Plan
 
-Build the entire CoalOmIT (COMIT) project from its current scaffold state to a working, installable toolkit.
+Build the entire CoalOmit (COMIT) project from its current scaffold state to a working, installable toolkit.
 
 ## User Review Required
 

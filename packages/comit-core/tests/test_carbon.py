@@ -1,4 +1,4 @@
-# Copyright 2026 CoalOmIT Authors.
+# Copyright 2026 CoalOmit Authors.
 # Licensed under the Apache License, Version 2.0.
 
 from comit_core.carbon.grid_intensity import get_grid_intensity
