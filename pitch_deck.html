@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoalOmIT Pitch Deck — Interactive Slide Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #060610;
+      --card-bg: #0d0d1a;
+      --card-alt: #141428;
+      --green: #00ff88;
+      --cyan: #00d4ff;
+      --purple: #7c3aed;
+      --text: #e8e8f0;
+      --muted: #8c91a0;
+      --border: rgba(255,255,255,0.08);
+      --red: #ff5555;
+    }
+    body {
+      background: #000;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .deck-header {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--green);
+    }
+    .brand span { color: #fff; }
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .slide-viewport {
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 16 / 9;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(0,255,136,0.12);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide-card {
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 2rem 2.5rem;
+      flex-direction: column;
+      background: var(--bg);
+    }
+    .slide-card.active { display: flex; }
+    
+    /* Top Banner */
+    .slide-top-banner {
+      background: var(--bg);
+      color: #fff;
+      margin: -2rem -2.5rem 1.5rem -2.5rem;
+      padding: 1rem 2.5rem;
+      border-bottom: 2px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .slide-top-banner h2 { font-size: 1.3rem; font-weight: 700; color: #fff; }
+    .slide-top-banner .badge { color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700; }
+
+    /* Slide Title Cover */
+    .cover-slide {
+      background: var(--bg);
+      color: #fff;
+      height: 100%;
+      margin: -2rem -2.5rem;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .cover-slide h1 { font-size: 2.8rem; font-weight: 900; color: var(--green); margin-bottom: 0.5rem; }
+    .cover-slide h2 { font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 1.5rem; }
+    .cover-slide p { font-size: 1.1rem; color: var(--text); max-width: 750px; line-height: 1.6; }
+
+    /* Controls */
+    .controls {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    button {
+      background: var(--card-bg);
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    button:hover { background: var(--green); color: #000; }
+    
+    /* Table styles */
+    table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.85rem; }
+    th { background: var(--card-alt); color: var(--green); padding: 0.65rem; text-align: left; font-weight: 700; border-bottom: 1px solid var(--border); }
+    td { padding: 0.65rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
+    tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    
+    /* Highlight box */
+    .verdict-box {
+      margin-top: auto;
+      text-align: center;
+      font-weight: 800;
+      color: var(--red);
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      padding-top: 0.5rem;
+    }
+
+    /* Grid boxes */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; height: 100%; }
+    .card-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; }
+    .card-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--cyan); margin-bottom: 0.8rem; }
+    .card-box ul { padding-left: 1.2rem; font-size: 0.85rem; color: var(--text); line-height: 1.6; }
+    .card-box ul li { margin-bottom: 0.5rem; }
+
+    /* Metric boxes */
+    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+    .m-card { background: var(--card-bg); border: 1.5px solid var(--green); border-radius: 10px; padding: 1.2rem; text-align: center; }
+    .m-card .val { font-size: 2.4rem; font-weight: 900; color: var(--green); }
+    .m-card .lbl { font-size: 0.95rem; font-weight: 700; color: #fff; margin: 0.2rem 0; }
+    .m-card .sub { font-size: 0.75rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <div class="deck-header">
+    <div class="brand">Cø <span>CoalOmIT</span></div>
+    <div class="slide-counter">Slide <span id="current-num">1</span> of 13</div>
+  </div>
+
+  <div class="slide-viewport">
+    
+    <!-- SLIDE 1 -->
+    <div class="slide-card active">
+      <div class="cover-slide">
+        <h1>Cø CoalOmIT</h1>
+        <h2>Eliminate the Carbon Cost of Your AI Models</h2>
+        <p>CoalOmIT is an open-source toolkit that quantifies the energy and CO₂ trade-offs of AI model compression — in seconds, right inside your existing workflow.</p>
+        <div style="margin-top: 2rem; color: var(--green); font-size: 0.9rem; font-family: monospace;">Open Source · Apache 2.0 · Live on GitHub</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Founders & Leadership Team</h2>
+        <div class="badge">SLIDE 02</div>
+      </div>
+      <div class="grid-2" style="grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+        <div class="card-box" style="text-align: center; border: 2px dashed var(--cyan);">
+          <div style="height: 120px; background: var(--card-alt); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-weight: 600; font-size: 0.85rem;">[ Insert Photo ]</div>
+          <h3 style="margin-top: 0.8rem; margin-bottom: 0.2rem; color: #fff;">Founder Name 1</h3>
+          <div style="color: var(--green); font-weight: 700; font-size: 0.8rem;">Co-Founder & CEO</div>
+          <ul style="text-align: left; margin-top: 0.5rem; color: var(--muted);">
+            <li>Ex-Senior ML Engineer</li>
+            <li>AI Infrastructure Expert</li>
+          </ul>
+        </div>
+        <div class="card-box" style="text-align: center; border: 2px dashed var(--cyan);">
+          <div style="height: 120px; background: var(--card-alt); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-weight: 600; font-size: 0.85rem;">[ Insert Photo ]</div>
+          <h3 style="margin-top: 0.8rem; margin-bottom: 0.2rem; color: #fff;">Founder Name 2</h3>
+          <div style="color: var(--green); font-weight: 700; font-size: 0.8rem;">Co-Founder & CTO</div>
+          <ul style="text-align: left; margin-top: 0.5rem; color: var(--muted);">
+            <li>PyTorch Core Contributor</li>
+            <li>Quantization Researcher</li>
+          </ul>
+        </div>
+        <div class="card-box" style="text-align: center; border: 2px dashed var(--cyan);">
+          <div style="height: 120px; background: var(--card-alt); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-weight: 600; font-size: 0.85rem;">[ Insert Photo ]</div>
+          <h3 style="margin-top: 0.8rem; margin-bottom: 0.2rem; color: #fff;">Founder Name 3</h3>
+          <div style="color: var(--green); font-weight: 700; font-size: 0.8rem;">Head of Engineering</div>
+          <ul style="text-align: left; margin-top: 0.5rem; color: var(--muted);">
+            <li>Cloud Systems Architect</li>
+            <li>ESG Telemetry Lead</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Current Issues with AI Model Deployment</h2>
+        <div class="badge">SLIDE 03</div>
+      </div>
+      <div class="grid-2">
+        <div class="card-box">
+          <h3>ML Engineers & AI Teams</h3>
+          <ul>
+            <li>Completely blind to carbon delta when compressing models</li>
+            <li>Optimize only for accuracy & latency, ignoring energy FLOPs</li>
+            <li>No easy tool to measure per-inference kWh or regional CO₂</li>
+            <li>Trial-and-error quantization without trade-off data</li>
+          </ul>
+        </div>
+        <div class="card-box">
+          <h3>Enterprise & ESG Compliance</h3>
+          <ul>
+            <li>Silent accumulation of AI carbon bloat across cloud clusters</li>
+            <li>Upcoming EU CSRD mandates corporate carbon reporting</li>
+            <li>High electricity bills driven by unoptimized FP32 models</li>
+            <li>Lack of bottom-up telemetry to prove green AI initiatives</li>
+          </ul>
+        </div>
+      </div>
+      <div class="verdict-box">ACCURACY & LATENCY ARE TRACKED DAILY — CARBON EMISSIONS REMAIN COMPLETELY BLIND</div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>How It Works & Business Model</h2>
+        <div class="badge">SLIDE 04</div>
+      </div>
+      <div class="grid-2" style="grid-template-columns: 1.2fr 0.8fr;">
+        <div class="card-box">
+          <h3 style="color: var(--green);">Product Workflow</h3>
+          <ul style="font-size: 0.85rem; line-height: 1.6;">
+            <li><strong>1. Input Model Script:</strong> Developer runs <code>cac run model.py --methods int8,int4</code></li>
+            <li><strong>2. FLOPs & Energy Calculation:</strong> PyTorch native FlopCounterMode profiles hardware energy</li>
+            <li><strong>3. Regional Grid Mapping:</strong> Energy mapped to monthly CO₂ across 35+ power grids</li>
+            <li><strong>4. Automated CI/CD Comment:</strong> GitHub Action posts comparison on PRs</li>
+          </ul>
+        </div>
+        <div class="card-box" style="background: var(--card-alt); border-color: var(--cyan);">
+          <h3>Business Model</h3>
+          <ul>
+            <li><strong>Open Source Core:</strong> Free developer CLI & PyTorch engine</li>
+            <li><strong>Enterprise SaaS:</strong> Hosted dashboard & carbon trends</li>
+            <li><strong>Compliance API:</strong> EU CSRD & SEC ESG reporting exports</li>
+          </ul>
+        </div>
+      </div>
+      <div class="verdict-box">WE ARE BUILDING THE CARBON-AWARE COMPRESSION LAYER OVER EVERY ML PIPELINE</div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Our Technical Architecture & Capabilities</h2>
+        <div class="badge">SLIDE 05</div>
+      </div>
+      <div class="card-box" style="height: 100%;">
+        <ul>
+          <li><strong style="color: var(--green);">PyTorch 2.x Native FlopCounterMode:</strong> Accurately counts exact hardware FLOPs per inference without modifying model code.</li>
+          <li><strong style="color: var(--green);">Multi-Method Quantization Engine:</strong> Supports FP32 Baseline, INT8 Dynamic, INT4 Weight-Only, AWQ, and GPTQ quantization backends.</li>
+          <li><strong style="color: var(--green);">Regional Grid Carbon Intensity Database:</strong> Pre-computed intensity metrics for 35+ country grids (gCO₂/kWh) with live Electricity Maps API fallback.</li>
+          <li><strong style="color: var(--green);">Automated CI/CD Bot (cac-action):</strong> GitHub Action container that posts detailed before/after carbon trade-off tables directly onto Pull Requests.</li>
+          <li><strong style="color: var(--green);">Rich Developer CLI (cac-cli):</strong> Command-line tool producing color-coded terminal tables, Markdown reports, and JSON exports.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Unit Economics & Model Impact</h2>
+        <div class="badge">SLIDE 06</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Compression Strategy</th>
+            <th>Baseline (FP32)</th>
+            <th>CoalOmIT (INT8 / INT4)</th>
+            <th>Impact / Explanation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Energy per 1k Inferences</strong></td>
+            <td>0.021 kWh</td>
+            <td style="color: var(--green);"><strong>0.009 kWh (-57%)</strong></td>
+            <td>57% energy reduction per batch via INT4 quantization</td>
+          </tr>
+          <tr>
+            <td><strong>Est. Monthly CO₂ (1M batch)</strong></td>
+            <td>128 kg CO₂</td>
+            <td style="color: var(--green);"><strong>55 kg CO₂ (-57%)</strong></td>
+            <td>Direct reduction of 73 kg CO₂ per model instance/mo</td>
+          </tr>
+          <tr>
+            <td><strong>Model Size & Latency</strong></td>
+            <td>440 MB / 42ms</td>
+            <td style="color: var(--green);"><strong>55 MB / 18ms (-57%)</strong></td>
+            <td>87% smaller footprint & 2.3x latency speedup</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SLIDE 7 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Our Key Differentiators</h2>
+        <div class="badge">SLIDE 07</div>
+      </div>
+      <div class="grid-2">
+        <div class="card-box" style="border-top: 4px solid var(--green);">
+          <h3 style="color: var(--green);">PRODUCT</h3>
+          <ul>
+            <li>PyTorch Native FLOP Profiling</li>
+            <li>Regional Power Grid Database (35+ countries)</li>
+            <li>Zero-Code Developer Experience (<code>cac run model.py</code>)</li>
+          </ul>
+        </div>
+        <div class="card-box" style="border-top: 4px solid var(--cyan);">
+          <h3 style="color: var(--cyan);">SERVICE</h3>
+          <ul>
+            <li>Automated CI/CD PR Bot</li>
+            <li>EU CSRD Compliance Exports</li>
+            <li>100% Status & Pareto Trade-Off Visibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Leveraging Technology — Legacy vs CoalOmIT</h2>
+        <div class="badge">SLIDE 08</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>Legacy / Manual Approach</th>
+            <th>CoalOmIT Platform</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Carbon Measurement</strong></td>
+            <td>Static spreadsheet estimates</td>
+            <td style="color: var(--green);">Real-time PyTorch FLOPs & grid intensity lookup</td>
+          </tr>
+          <tr>
+            <td><strong>CI/CD Integration</strong></td>
+            <td>None — Post-deployment annual audits</td>
+            <td style="color: var(--green);">Automated GitHub Action PR comments (cac-action)</td>
+          </tr>
+          <tr>
+            <td><strong>Quantization Strategy</strong></td>
+            <td>Guesswork on INT8 accuracy drop</td>
+            <td style="color: var(--green);">Pareto trade-off matrix (Accuracy, Latency, CO₂)</td>
+          </tr>
+          <tr>
+            <td><strong>Enterprise ESG Exports</strong></td>
+            <td>Expensive annual consultants</td>
+            <td style="color: var(--green);">Instant CSRD & SEC compliant API data exports</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SLIDE 9 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Traction & Early Adoption</h2>
+        <div class="badge">SLIDE 09</div>
+      </div>
+      <div class="grid-2">
+        <div class="card-box">
+          <h3>Developer & CLI Traction</h3>
+          <ul>
+            <li>CLI Downloads growing ~25% month-on-month</li>
+            <li>100+ GitHub Stars & growing open-source community</li>
+            <li>Adopted by early AI startups & ML research labs</li>
+            <li>500+ Model compression reports generated</li>
+          </ul>
+        </div>
+        <div class="card-box">
+          <h3>Enterprise CI/CD Traction</h3>
+          <ul>
+            <li>GitHub Action integrated in 20+ active PR pipelines</li>
+            <li>1,000+ monthly model inferences audited per node</li>
+            <li>57% average carbon savings achieved across teams</li>
+            <li>Strong interest from EU clients facing CSRD deadlines</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Usage Patterns & Impact Metrics</h2>
+        <div class="badge">SLIDE 10</div>
+      </div>
+      <div class="metrics-grid">
+        <div class="m-card">
+          <div class="val">57%</div>
+          <div class="lbl">Avg. CO₂ Reduction per Model</div>
+          <div class="sub">Achieved via INT4 Weight-Only Quantization</div>
+        </div>
+        <div class="m-card">
+          <div class="val">2.3x</div>
+          <div class="lbl">Inference Latency Speedup</div>
+          <div class="sub">p50 latency improved from 42ms to 18ms</div>
+        </div>
+        <div class="m-card">
+          <div class="val">87%</div>
+          <div class="lbl">Model Memory Savings</div>
+          <div class="sub">Footprint reduced from 440MB to 55MB</div>
+        </div>
+        <div class="m-card">
+          <div class="val">35+</div>
+          <div class="lbl">Regional Power Grids Mapped</div>
+          <div class="sub">Live gCO₂/kWh grid intensity coverage</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Repeat Usage & Pipeline Retention</h2>
+        <div class="badge">SLIDE 11</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Cohort Month</th>
+            <th>Active Repos</th>
+            <th>Month 1 Retention</th>
+            <th>Month 2 Retention</th>
+            <th>Month 3 Retention</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Q1 2026</strong></td>
+            <td>25 Repos</td>
+            <td>100%</td>
+            <td>84%</td>
+            <td>76%</td>
+          </tr>
+          <tr>
+            <td><strong>Q2 2026</strong></td>
+            <td>65 Repos</td>
+            <td>100%</td>
+            <td>88%</td>
+            <td>81%</td>
+          </tr>
+          <tr>
+            <td><strong>Q3 2026</strong></td>
+            <td>140 Repos</td>
+            <td>100%</td>
+            <td>91%</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top: 1.5rem; font-weight: 700; font-size: 1rem; color: #fff;">
+        <div>Average % of Repos retaining GitHub Action in 2nd month : <span style="color: var(--green);">88%</span></div>
+        <div style="margin-top: 0.4rem;">Average % of Repos retaining GitHub Action in 3rd month : <span style="color: var(--green);">79%</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Competitive Landscape & Positioning</h2>
+        <div class="badge">SLIDE 12</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Existing Competitors</th>
+            <th>CoalOmIT Advantage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>General Carbon Calculators</strong><br/>(CodeCarbon, EcoLogITS)</td>
+            <td>Pure emissions tracking only; no compression capabilities</td>
+            <td style="color: var(--green);">Combines carbon tracking + PyTorch hardware quantization</td>
+          </tr>
+          <tr>
+            <td><strong>ML Experiment Trackers</strong><br/>(WandB, MLflow)</td>
+            <td>Focuses on accuracy & training loss; no carbon grid lookup</td>
+            <td style="color: var(--green);">Dedicated green AI metrics + automated GitHub PR comments</td>
+          </tr>
+          <tr>
+            <td><strong>Enterprise ESG Platforms</strong><br/>(Perspectium, Salesforce)</td>
+            <td>Top-down annual estimates; high consulting costs</td>
+            <td style="color: var(--green);">Bottom-up engineering telemetry + instant CSRD API exports</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SLIDE 13 -->
+    <div class="slide-card">
+      <div class="slide-top-banner">
+        <h2>Product & Business Roadmap</h2>
+        <div class="badge">SLIDE 13</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Timeline</th>
+            <th>Product Milestones</th>
+            <th>Business Milestones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Q1 2026</strong></td>
+            <td>Launch cac-core & 35+ country power grid intensity datasets</td>
+            <td>Launch Open-Source repository & developer community</td>
+          </tr>
+          <tr>
+            <td><strong>Q2 2026</strong></td>
+            <td>Release cac-action GitHub Action PR bot & INT4 support</td>
+            <td>Onboard top 20 open-source ML repos & Enterprise Beta</td>
+          </tr>
+          <tr>
+            <td><strong>Q3 2026</strong></td>
+            <td>Launch Cloud Hosted API & EU CSRD compliance export module</td>
+            <td>Launch Enterprise Paid Tier ($/node/mo) in EU & US</td>
+          </tr>
+          <tr>
+            <td><strong>Q4 2026</strong></td>
+            <td>Auto-Quantization Engine for LLMs & multi-cloud monitoring</td>
+            <td>Scale to 100+ paying enterprise ML teams</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="controls">
+    <button onclick="prevSlide()">← Previous</button>
+    <button onclick="nextSlide()">Next →</button>
+  </div>
+
+  <script>
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide-card');
+    const numDisplay = document.getElementById('current-num');
+
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      numDisplay.textContent = index + 1;
+    }
+
+    function nextSlide() {
+      if (currentIndex < slides.length - 1) {
+        currentIndex++;
+        showSlide(currentIndex);
+      }
+    }
+
+    function prevSlide() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showSlide(currentIndex);
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+</body>
+</html>
