@@ -130,14 +130,14 @@ def create_deck():
     p_b1.alignment = PP_ALIGN.RIGHT
 
     # -------------------------------------------------------------
-    # SLIDE 2: Team & Founders (Dark Theme Blank Template)
+    # SLIDE 2: Team & Founders (Dark Theme 2-Founder Template)
     # -------------------------------------------------------------
     slide2 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide2, "Founders & Leadership Team")
     
-    positions = [Inches(0.8), Inches(4.8), Inches(8.8)]
+    positions = [Inches(1.5), Inches(7.0)]
     for i, x_pos in enumerate(positions):
-        img_box = slide2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x_pos, Inches(1.6), Inches(3.7), Inches(2.2))
+        img_box = slide2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x_pos, Inches(1.6), Inches(4.8), Inches(2.3))
         img_box.fill.solid()
         img_box.fill.fore_color.rgb = CARD_BG
         img_box.line.color.rgb = CYAN
@@ -149,25 +149,25 @@ def create_deck():
         p_i.font.color.rgb = MUTED
         p_i.alignment = PP_ALIGN.CENTER
         
-        bio_box = slide2.shapes.add_textbox(x_pos, Inches(3.9), Inches(3.7), Inches(2.8))
+        bio_box = slide2.shapes.add_textbox(x_pos, Inches(4.0), Inches(4.8), Inches(2.7))
         tf_bio = bio_box.text_frame
         tf_bio.word_wrap = True
         
         p_name = tf_bio.paragraphs[0]
-        p_name.text = f"Founder / Executive Name {i+1}"
+        p_name.text = f"Founder {i+1} Name"
         p_name.font.bold = True
-        p_name.font.size = Pt(16)
+        p_name.font.size = Pt(18)
         p_name.font.color.rgb = TEXT_WHITE
         
         p_role = tf_bio.add_paragraph()
-        p_role.text = "Title & Role (e.g. Co-Founder & CEO / CTO)"
+        p_role.text = "Co-Founder & Lead Engineer" if i == 0 else "Co-Founder & Systems Lead"
         p_role.font.bold = True
-        p_role.font.size = Pt(12)
+        p_role.font.size = Pt(13)
         p_role.font.color.rgb = GREEN
         
         p_desc = tf_bio.add_paragraph()
-        p_desc.text = "• Background: Alumnus / Ex-Senior ML Engineer at Top Tech\n• Domain expertise in AI Infrastructure & Sustainability\n• Built & scaled previous engineering initiatives"
-        p_desc.font.size = Pt(11)
+        p_desc.text = "• Undergraduate Student Engineer\n• Core Architecture & AI Tooling Lead" if i == 0 else "• Undergraduate Student Engineer\n• Systems Architecture & CI/CD Lead"
+        p_desc.font.size = Pt(12)
         p_desc.font.color.rgb = TEXT_LIGHT
 
     # -------------------------------------------------------------
