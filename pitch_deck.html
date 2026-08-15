@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CoalOmIT Pitch Deck — Interactive Slide Viewer</title>
+  <title>CoalØmit Pitch Deck — REDUCE NOW SUSTAIN FOREVER</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #060610;
-      --card-bg: #0d0d1a;
-      --card-alt: #141428;
-      --green: #00ff88;
-      --cyan: #00d4ff;
-      --purple: #7c3aed;
-      --text: #e8e8f0;
-      --muted: #8c91a0;
-      --border: rgba(255,255,255,0.08);
+      --bg: #121212;
+      --card-bg: #1a1a1a;
+      --card-alt: #222222;
+      --orange: #ff6e00;
+      --amber: #d97706;
+      --text: #e5e5e5;
+      --muted: #a0a0a0;
+      --border: rgba(217, 119, 6, 0.25);
       --red: #ff5555;
     }
     body {
@@ -44,13 +43,13 @@
       align-items: center;
       gap: 0.5rem;
       font-weight: 800;
-      font-size: 1.2rem;
-      color: var(--green);
+      font-size: 1.3rem;
+      color: var(--orange);
     }
-    .brand span { color: #fff; }
+    .brand span { color: var(--amber); font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; }
     .slide-counter {
       font-family: 'JetBrains Mono', monospace;
-      color: var(--muted);
+      color: var(--amber);
       font-size: 0.9rem;
     }
     .slide-viewport {
@@ -61,7 +60,7 @@
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 12px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(0,255,136,0.12);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(255,110,0,0.15);
       position: relative;
       overflow: hidden;
       display: flex;
@@ -83,13 +82,13 @@
       color: #fff;
       margin: -2rem -2.5rem 1.5rem -2.5rem;
       padding: 1rem 2.5rem;
-      border-bottom: 2px solid var(--green);
+      border-bottom: 2px solid var(--orange);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .slide-top-banner h2 { font-size: 1.3rem; font-weight: 700; color: #fff; }
-    .slide-top-banner .badge { color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700; }
+    .slide-top-banner .badge { color: var(--orange); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700; }
 
     /* Slide Title Cover */
     .cover-slide {
@@ -104,7 +103,8 @@
       align-items: center;
       text-align: center;
     }
-    .cover-slide h1 { font-size: 2.8rem; font-weight: 900; color: var(--green); margin-bottom: 0.5rem; }
+    .cover-slide h1 { font-size: 3.2rem; font-weight: 900; color: var(--orange); margin-bottom: 0.2rem; letter-spacing: -1px; }
+    .cover-slide .subtitle { font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: 2px; margin-bottom: 1.5rem; }
     .cover-slide h2 { font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 1.5rem; }
     .cover-slide p { font-size: 1.1rem; color: var(--text); max-width: 750px; line-height: 1.6; }
 
@@ -125,11 +125,11 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    button:hover { background: var(--green); color: #000; }
+    button:hover { background: var(--orange); color: #000; }
     
     /* Table styles */
     table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.85rem; }
-    th { background: var(--card-alt); color: var(--green); padding: 0.65rem; text-align: left; font-weight: 700; border-bottom: 1px solid var(--border); }
+    th { background: var(--card-alt); color: var(--orange); padding: 0.65rem; text-align: left; font-weight: 700; border-bottom: 1px solid var(--border); }
     td { padding: 0.65rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
     tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
     
@@ -147,22 +147,22 @@
     /* Grid boxes */
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; height: 100%; }
     .card-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; }
-    .card-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--cyan); margin-bottom: 0.8rem; }
+    .card-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--orange); margin-bottom: 0.8rem; }
     .card-box ul { padding-left: 1.2rem; font-size: 0.85rem; color: var(--text); line-height: 1.6; }
     .card-box ul li { margin-bottom: 0.5rem; }
 
     /* Metric boxes */
     .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
-    .m-card { background: var(--card-bg); border: 1.5px solid var(--green); border-radius: 10px; padding: 1.2rem; text-align: center; }
-    .m-card .val { font-size: 2.4rem; font-weight: 900; color: var(--green); }
+    .m-card { background: var(--card-bg); border: 1.5px solid var(--orange); border-radius: 10px; padding: 1.2rem; text-align: center; }
+    .m-card .val { font-size: 2.4rem; font-weight: 900; color: var(--orange); }
     .m-card .lbl { font-size: 0.95rem; font-weight: 700; color: #fff; margin: 0.2rem 0; }
-    .m-card .sub { font-size: 0.75rem; color: var(--muted); }
+    .m-card .sub { font-size: 0.75rem; color: var(--amber); }
   </style>
 </head>
 <body>
 
   <div class="deck-header">
-    <div class="brand">Cø <span>CoalOmIT</span></div>
+    <div class="brand">CØ CoalØmit <span>REDUCE NOW SUSTAIN FOREVER</span></div>
     <div class="slide-counter">Slide <span id="current-num">1</span> of 13</div>
   </div>
 
@@ -171,10 +171,11 @@
     <!-- SLIDE 1 -->
     <div class="slide-card active">
       <div class="cover-slide">
-        <h1>Cø CoalOmIT</h1>
-        <h2>Eliminate the Carbon Cost of Your AI Models</h2>
-        <p>CoalOmIT is an open-source toolkit that quantifies the energy and CO₂ trade-offs of AI model compression — in seconds, right inside your existing workflow.</p>
-        <div style="margin-top: 2rem; color: var(--green); font-size: 0.9rem; font-family: monospace;">Open Source · Apache 2.0 · Live on GitHub</div>
+        <h1>CoalØmit</h1>
+        <div class="subtitle">REDUCE NOW SUSTAIN FOREVER</div>
+        <h2>Green AI & Carbon-Aware Compression 2.0</h2>
+        <p>Quantify, Compare & Eliminate the Carbon Footprint of AI Models in Seconds</p>
+        <div style="margin-top: 2rem; color: var(--orange); font-size: 0.9rem; font-family: monospace;">Open Source · Apache 2.0 · Live on GitHub</div>
       </div>
     </div>
 
@@ -185,19 +186,19 @@
         <div class="badge">SLIDE 02</div>
       </div>
       <div class="grid-2" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
-        <div class="card-box" style="text-align: center; border: 2px dashed var(--cyan);">
+        <div class="card-box" style="text-align: center; border: 2px dashed var(--orange);">
           <div style="height: 140px; background: var(--card-alt); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-weight: 600; font-size: 0.85rem;">[ Insert Founder 1 Photo ]</div>
           <h3 style="margin-top: 1rem; margin-bottom: 0.2rem; color: #fff;">Founder 1 Name</h3>
-          <div style="color: var(--green); font-weight: 700; font-size: 0.9rem;">Co-Founder & Lead Engineer</div>
+          <div style="color: var(--orange); font-weight: 700; font-size: 0.9rem;">Co-Founder & Lead Engineer</div>
           <ul style="text-align: left; margin-top: 0.8rem; color: var(--text); font-size: 0.85rem;">
             <li>Undergraduate Student Engineer</li>
             <li>Core Architecture & Tooling Lead</li>
           </ul>
         </div>
-        <div class="card-box" style="text-align: center; border: 2px dashed var(--cyan);">
+        <div class="card-box" style="text-align: center; border: 2px dashed var(--orange);">
           <div style="height: 140px; background: var(--card-alt); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-weight: 600; font-size: 0.85rem;">[ Insert Founder 2 Photo ]</div>
           <h3 style="margin-top: 1rem; margin-bottom: 0.2rem; color: #fff;">Founder 2 Name</h3>
-          <div style="color: var(--green); font-weight: 700; font-size: 0.9rem;">Co-Founder & Systems Lead</div>
+          <div style="color: var(--orange); font-weight: 700; font-size: 0.9rem;">Co-Founder & Systems Lead</div>
           <ul style="text-align: left; margin-top: 0.8rem; color: var(--text); font-size: 0.85rem;">
             <li>Undergraduate Student Engineer</li>
             <li>CI/CD & Deployment Lead</li>
@@ -223,7 +224,7 @@
           </ul>
         </div>
         <div class="card-box">
-          <h3>Enterprise & ESG Compliance</h3>
+          <h3 style="color: var(--amber);">Enterprise & ESG Compliance</h3>
           <ul>
             <li>Silent accumulation of AI carbon bloat across cloud clusters</li>
             <li>Upcoming EU CSRD mandates corporate carbon reporting</li>
@@ -243,7 +244,7 @@
       </div>
       <div class="grid-2" style="grid-template-columns: 1.2fr 0.8fr;">
         <div class="card-box">
-          <h3 style="color: var(--green);">Product Workflow</h3>
+          <h3>Product Workflow</h3>
           <ul style="font-size: 0.85rem; line-height: 1.6;">
             <li><strong>1. Input Model Script:</strong> Developer runs <code>cac run model.py --methods int8,int4</code></li>
             <li><strong>2. FLOPs & Energy Calculation:</strong> PyTorch native FlopCounterMode profiles hardware energy</li>
@@ -251,8 +252,8 @@
             <li><strong>4. Automated CI/CD Comment:</strong> GitHub Action posts comparison on PRs</li>
           </ul>
         </div>
-        <div class="card-box" style="background: var(--card-alt); border-color: var(--cyan);">
-          <h3>Business Model</h3>
+        <div class="card-box" style="background: var(--card-alt); border-color: var(--amber);">
+          <h3 style="color: var(--amber);">Business Model</h3>
           <ul>
             <li><strong>Open Source Core:</strong> Free developer CLI & PyTorch engine</li>
             <li><strong>Enterprise SaaS:</strong> Hosted dashboard & carbon trends</li>
@@ -271,11 +272,11 @@
       </div>
       <div class="card-box" style="height: 100%;">
         <ul>
-          <li><strong style="color: var(--green);">PyTorch 2.x Native FlopCounterMode:</strong> Accurately counts exact hardware FLOPs per inference without modifying model code.</li>
-          <li><strong style="color: var(--green);">Multi-Method Quantization Engine:</strong> Supports FP32 Baseline, INT8 Dynamic, INT4 Weight-Only, AWQ, and GPTQ quantization backends.</li>
-          <li><strong style="color: var(--green);">Regional Grid Carbon Intensity Database:</strong> Pre-computed intensity metrics for 35+ country grids (gCO₂/kWh) with live Electricity Maps API fallback.</li>
-          <li><strong style="color: var(--green);">Automated CI/CD Bot (cac-action):</strong> GitHub Action container that posts detailed before/after carbon trade-off tables directly onto Pull Requests.</li>
-          <li><strong style="color: var(--green);">Rich Developer CLI (cac-cli):</strong> Command-line tool producing color-coded terminal tables, Markdown reports, and JSON exports.</li>
+          <li><strong style="color: var(--orange);">PyTorch 2.x Native FlopCounterMode:</strong> Accurately counts exact hardware FLOPs per inference without modifying model code.</li>
+          <li><strong style="color: var(--orange);">Multi-Method Quantization Engine:</strong> Supports FP32 Baseline, INT8 Dynamic, INT4 Weight-Only, AWQ, and GPTQ quantization backends.</li>
+          <li><strong style="color: var(--orange);">Regional Grid Carbon Intensity Database:</strong> Pre-computed intensity metrics for 35+ country grids (gCO₂/kWh) with live Electricity Maps API fallback.</li>
+          <li><strong style="color: var(--orange);">Automated CI/CD Bot (cac-action):</strong> GitHub Action container that posts detailed before/after carbon trade-off tables directly onto Pull Requests.</li>
+          <li><strong style="color: var(--orange);">Rich Developer CLI (cac-cli):</strong> Command-line tool producing color-coded terminal tables, Markdown reports, and JSON exports.</li>
         </ul>
       </div>
     </div>
@@ -291,7 +292,7 @@
           <tr>
             <th>Compression Strategy</th>
             <th>Baseline (FP32)</th>
-            <th>CoalOmIT (INT8 / INT4)</th>
+            <th>CoalØmit (INT8 / INT4)</th>
             <th>Impact / Explanation</th>
           </tr>
         </thead>
@@ -299,19 +300,19 @@
           <tr>
             <td><strong>Energy per 1k Inferences</strong></td>
             <td>0.021 kWh</td>
-            <td style="color: var(--green);"><strong>0.009 kWh (-57%)</strong></td>
+            <td style="color: var(--orange);"><strong>0.009 kWh (-57%)</strong></td>
             <td>57% energy reduction per batch via INT4 quantization</td>
           </tr>
           <tr>
             <td><strong>Est. Monthly CO₂ (1M batch)</strong></td>
             <td>128 kg CO₂</td>
-            <td style="color: var(--green);"><strong>55 kg CO₂ (-57%)</strong></td>
+            <td style="color: var(--orange);"><strong>55 kg CO₂ (-57%)</strong></td>
             <td>Direct reduction of 73 kg CO₂ per model instance/mo</td>
           </tr>
           <tr>
             <td><strong>Model Size & Latency</strong></td>
             <td>440 MB / 42ms</td>
-            <td style="color: var(--green);"><strong>55 MB / 18ms (-57%)</strong></td>
+            <td style="color: var(--orange);"><strong>55 MB / 18ms (-57%)</strong></td>
             <td>87% smaller footprint & 2.3x latency speedup</td>
           </tr>
         </tbody>
@@ -325,16 +326,16 @@
         <div class="badge">SLIDE 07</div>
       </div>
       <div class="grid-2">
-        <div class="card-box" style="border-top: 4px solid var(--green);">
-          <h3 style="color: var(--green);">PRODUCT</h3>
+        <div class="card-box" style="border-top: 4px solid var(--orange);">
+          <h3>PRODUCT</h3>
           <ul>
             <li>PyTorch Native FLOP Profiling</li>
             <li>Regional Power Grid Database (35+ countries)</li>
             <li>Zero-Code Developer Experience (<code>cac run model.py</code>)</li>
           </ul>
         </div>
-        <div class="card-box" style="border-top: 4px solid var(--cyan);">
-          <h3 style="color: var(--cyan);">SERVICE</h3>
+        <div class="card-box" style="border-top: 4px solid var(--amber);">
+          <h3 style="color: var(--amber);">SERVICE</h3>
           <ul>
             <li>Automated CI/CD PR Bot</li>
             <li>EU CSRD Compliance Exports</li>
@@ -347,7 +348,7 @@
     <!-- SLIDE 8 -->
     <div class="slide-card">
       <div class="slide-top-banner">
-        <h2>Leveraging Technology — Legacy vs CoalOmIT</h2>
+        <h2>Leveraging Technology — Legacy vs CoalØmit</h2>
         <div class="badge">SLIDE 08</div>
       </div>
       <table>
@@ -355,29 +356,29 @@
           <tr>
             <th>Capability</th>
             <th>Legacy / Manual Approach</th>
-            <th>CoalOmIT Platform</th>
+            <th>CoalØmit Platform</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Carbon Measurement</strong></td>
             <td>Static spreadsheet estimates</td>
-            <td style="color: var(--green);">Real-time PyTorch FLOPs & grid intensity lookup</td>
+            <td style="color: var(--orange);">Real-time PyTorch FLOPs & grid intensity lookup</td>
           </tr>
           <tr>
             <td><strong>CI/CD Integration</strong></td>
             <td>None — Post-deployment annual audits</td>
-            <td style="color: var(--green);">Automated GitHub Action PR comments (cac-action)</td>
+            <td style="color: var(--orange);">Automated GitHub Action PR comments (cac-action)</td>
           </tr>
           <tr>
             <td><strong>Quantization Strategy</strong></td>
             <td>Guesswork on INT8 accuracy drop</td>
-            <td style="color: var(--green);">Pareto trade-off matrix (Accuracy, Latency, CO₂)</td>
+            <td style="color: var(--orange);">Pareto trade-off matrix (Accuracy, Latency, CO₂)</td>
           </tr>
           <tr>
             <td><strong>Enterprise ESG Exports</strong></td>
             <td>Expensive annual consultants</td>
-            <td style="color: var(--green);">Instant CSRD & SEC compliant API data exports</td>
+            <td style="color: var(--orange);">Instant CSRD & SEC compliant API data exports</td>
           </tr>
         </tbody>
       </table>
@@ -400,7 +401,7 @@
           </ul>
         </div>
         <div class="card-box">
-          <h3>Enterprise CI/CD Traction</h3>
+          <h3 style="color: var(--amber);">Enterprise CI/CD Traction</h3>
           <ul>
             <li>GitHub Action integrated in 20+ active PR pipelines</li>
             <li>1,000+ monthly model inferences audited per node</li>
@@ -482,8 +483,8 @@
         </tbody>
       </table>
       <div style="margin-top: 1.5rem; font-weight: 700; font-size: 1rem; color: #fff;">
-        <div>Average % of Repos retaining GitHub Action in 2nd month : <span style="color: var(--green);">88%</span></div>
-        <div style="margin-top: 0.4rem;">Average % of Repos retaining GitHub Action in 3rd month : <span style="color: var(--green);">79%</span></div>
+        <div>Average % of Repos retaining GitHub Action in 2nd month : <span style="color: var(--orange);">88%</span></div>
+        <div style="margin-top: 0.4rem;">Average % of Repos retaining GitHub Action in 3rd month : <span style="color: var(--orange);">79%</span></div>
       </div>
     </div>
 
@@ -498,24 +499,24 @@
           <tr>
             <th>Category</th>
             <th>Existing Competitors</th>
-            <th>CoalOmIT Advantage</th>
+            <th>CoalØmit Advantage</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>General Carbon Calculators</strong><br/>(CodeCarbon, EcoLogITS)</td>
             <td>Pure emissions tracking only; no compression capabilities</td>
-            <td style="color: var(--green);">Combines carbon tracking + PyTorch hardware quantization</td>
+            <td style="color: var(--orange);">Combines carbon tracking + PyTorch hardware quantization</td>
           </tr>
           <tr>
             <td><strong>ML Experiment Trackers</strong><br/>(WandB, MLflow)</td>
             <td>Focuses on accuracy & training loss; no carbon grid lookup</td>
-            <td style="color: var(--green);">Dedicated green AI metrics + automated GitHub PR comments</td>
+            <td style="color: var(--orange);">Dedicated green AI metrics + automated GitHub PR comments</td>
           </tr>
           <tr>
             <td><strong>Enterprise ESG Platforms</strong><br/>(Perspectium, Salesforce)</td>
             <td>Top-down annual estimates; high consulting costs</td>
-            <td style="color: var(--green);">Bottom-up engineering telemetry + instant CSRD API exports</td>
+            <td style="color: var(--orange);">Bottom-up engineering telemetry + instant CSRD API exports</td>
           </tr>
         </tbody>
       </table>

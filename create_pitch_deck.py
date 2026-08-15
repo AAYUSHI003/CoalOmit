@@ -11,18 +11,17 @@ def create_deck():
     prs.slide_height = Inches(7.5)
     blank_slide_layout = prs.slide_layouts[6]
 
-    # CoalOmIT Exact Website Color Palette
-    BG_DARK = RGBColor(6, 6, 16)          # #060610 (Deep Space Navy)
-    CARD_BG = RGBColor(13, 13, 26)        # #0d0d1a (Dark Card Bg)
-    CARD_BG_ALT = RGBColor(20, 20, 40)    # #141428 (Slightly lighter card)
-    GREEN = RGBColor(0, 255, 136)         # #00ff88 (Neon Emerald Green)
-    CYAN = RGBColor(0, 212, 255)          # #00d4ff (Electric Cyan)
-    PURPLE = RGBColor(124, 58, 237)       # #7c3aed (Accent Purple)
-    TEXT_WHITE = RGBColor(255, 255, 255)  # #ffffff (Primary White)
-    TEXT_LIGHT = RGBColor(232, 232, 240)  # #e8e8f0 (Body Light Gray)
-    MUTED = RGBColor(140, 145, 160)       # #8c91a0 (Muted Gray)
-    BORDER_COLOR = RGBColor(30, 35, 55)   # Border subtle
-    RED_HIGHLIGHT = RGBColor(255, 85, 85) # Vivid Warning Red
+    # CoalØmit Screenshot Theme Colors
+    BG_DARK = RGBColor(18, 18, 18)          # #121212 (Dark Polygonal Charcoal)
+    CARD_BG = RGBColor(26, 26, 26)          # #1a1a1a (Dark Graphite Card)
+    CARD_BG_ALT = RGBColor(34, 34, 34)      # #222222 (Lighter Charcoal Card)
+    BRAND_ORANGE = RGBColor(255, 110, 0)    # #FF6E00 (CoalØmit Warm Orange)
+    GOLDEN_AMBER = RGBColor(217, 119, 6)    # #D97706 (Polygon Golden Amber)
+    TEXT_WHITE = RGBColor(255, 255, 255)    # #ffffff (Primary White)
+    TEXT_SILVER = RGBColor(229, 229, 229)   # #e5e5e5 (Tagline Silver)
+    MUTED = RGBColor(160, 160, 160)         # Muted Gray
+    BORDER_AMBER = RGBColor(180, 90, 0)     # Amber Border Accent
+    RED_HIGHLIGHT = RGBColor(255, 85, 85)   # Warning Red
 
     def set_slide_background(slide):
         bg_shape = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(13.333), Inches(7.5))
@@ -31,25 +30,25 @@ def create_deck():
         bg_shape.line.fill.background()
         return bg_shape
 
-    def add_header_footer(slide, title_text, category_text="CoalOmIT — Green AI Platform"):
+    def add_header_footer(slide, title_text, category_text="CoalØmit — REDUCE NOW SUSTAIN FOREVER"):
         set_slide_background(slide)
 
         # Header banner
         banner = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(13.333), Inches(1.15))
         banner.fill.solid()
         banner.fill.fore_color.rgb = BG_DARK
-        banner.line.color.rgb = GREEN
+        banner.line.color.rgb = BRAND_ORANGE
         banner.line.width = Pt(1.5)
 
-        # Brand Badge "Cø"
+        # Brand Badge "CØ"
         badge = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.5), Inches(0.25), Inches(0.65), Inches(0.65))
         badge.fill.solid()
-        badge.fill.fore_color.rgb = GREEN
+        badge.fill.fore_color.rgb = BRAND_ORANGE
         badge.line.fill.background()
         tf_b = badge.text_frame
         tf_b.word_wrap = True
         p_b = tf_b.paragraphs[0]
-        p_b.text = "Cø"
+        p_b.text = "CØ"
         p_b.font.bold = True
         p_b.font.size = Pt(22)
         p_b.font.color.rgb = BG_DARK
@@ -60,10 +59,10 @@ def create_deck():
         tf = txBox.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
-        p.text = "CoalOmIT"
+        p.text = "CoalØmit"
         p.font.bold = True
         p.font.size = Pt(14)
-        p.font.color.rgb = GREEN
+        p.font.color.rgb = BRAND_ORANGE
 
         p2 = tf.add_paragraph()
         p2.text = title_text
@@ -78,13 +77,13 @@ def create_deck():
         footer.line.fill.background()
         tf_f = footer.text_frame
         p_f = tf_f.paragraphs[0]
-        p_f.text = category_text + "  |  Confidential Pitch Deck"
+        p_f.text = category_text + "  |  REDUCE NOW SUSTAIN FOREVER"
         p_f.font.size = Pt(10)
-        p_f.font.color.rgb = MUTED
+        p_f.font.color.rgb = GOLDEN_AMBER
         p_f.alignment = PP_ALIGN.RIGHT
 
     # -------------------------------------------------------------
-    # SLIDE 1: Title Slide (Dark Theme)
+    # SLIDE 1: Title Slide
     # -------------------------------------------------------------
     slide1 = prs.slides.add_slide(blank_slide_layout)
     set_slide_background(slide1)
@@ -92,30 +91,38 @@ def create_deck():
     top_bar = slide1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(13.333), Inches(2.2))
     top_bar.fill.solid()
     top_bar.fill.fore_color.rgb = BG_DARK
-    top_bar.line.color.rgb = GREEN
+    top_bar.line.color.rgb = BRAND_ORANGE
     top_bar.line.width = Pt(2)
     
-    tx_logo = slide1.shapes.add_textbox(Inches(0.8), Inches(0.5), Inches(11.733), Inches(1.2))
-    p_logo = tx_logo.text_frame.paragraphs[0]
-    p_logo.text = "Cø CoalOmIT"
+    tx_logo = slide1.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.733), Inches(1.3))
+    tf_l = tx_logo.text_frame
+    p_logo = tf_l.paragraphs[0]
+    p_logo.text = "CoalØmit"
     p_logo.font.bold = True
-    p_logo.font.size = Pt(48)
-    p_logo.font.color.rgb = GREEN
+    p_logo.font.size = Pt(54)
+    p_logo.font.color.rgb = BRAND_ORANGE
     p_logo.alignment = PP_ALIGN.CENTER
     
-    tx_title = slide1.shapes.add_textbox(Inches(1.0), Inches(3.0), Inches(11.333), Inches(2.8))
+    p_tagline = tf_l.add_paragraph()
+    p_tagline.text = "REDUCE NOW SUSTAIN FOREVER"
+    p_tagline.font.bold = True
+    p_tagline.font.size = Pt(16)
+    p_tagline.font.color.rgb = TEXT_SILVER
+    p_tagline.alignment = PP_ALIGN.CENTER
+    
+    tx_title = slide1.shapes.add_textbox(Inches(1.0), Inches(3.2), Inches(11.333), Inches(2.8))
     tf_t = tx_title.text_frame
     p_t = tf_t.paragraphs[0]
-    p_t.text = "Eliminate the Carbon Cost of Your AI Models"
+    p_t.text = "Green AI & Carbon-Aware Compression 2.0"
     p_t.font.bold = True
-    p_t.font.size = Pt(40)
+    p_t.font.size = Pt(38)
     p_t.font.color.rgb = TEXT_WHITE
     p_t.alignment = PP_ALIGN.CENTER
     
     p_sub = tf_t.add_paragraph()
-    p_sub.text = "CoalOmIT is an open-source toolkit that quantifies the energy and CO₂ trade-offs of AI model compression — in seconds, right inside your existing workflow."
+    p_sub.text = "Quantify, Compare & Eliminate the Carbon Footprint of AI Models in Seconds"
     p_sub.font.size = Pt(18)
-    p_sub.font.color.rgb = TEXT_LIGHT
+    p_sub.font.color.rgb = GOLDEN_AMBER
     p_sub.alignment = PP_ALIGN.CENTER
     
     bottom_bar = slide1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(7.0), Inches(13.333), Inches(0.5))
@@ -126,11 +133,11 @@ def create_deck():
     p_b1 = tf_b1.paragraphs[0]
     p_b1.text = "Open Source · Apache 2.0 · Live on GitHub (AAYUSHI003/CoalOmit)"
     p_b1.font.size = Pt(11)
-    p_b1.font.color.rgb = GREEN
+    p_b1.font.color.rgb = BRAND_ORANGE
     p_b1.alignment = PP_ALIGN.RIGHT
 
     # -------------------------------------------------------------
-    # SLIDE 2: Team & Founders (Dark Theme 2-Founder Template)
+    # SLIDE 2: Team & Founders (2 Founders Layout)
     # -------------------------------------------------------------
     slide2 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide2, "Founders & Leadership Team")
@@ -140,7 +147,7 @@ def create_deck():
         img_box = slide2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x_pos, Inches(1.6), Inches(4.8), Inches(2.3))
         img_box.fill.solid()
         img_box.fill.fore_color.rgb = CARD_BG
-        img_box.line.color.rgb = CYAN
+        img_box.line.color.rgb = BRAND_ORANGE
         img_box.line.width = Pt(1)
         tf_img = img_box.text_frame
         p_i = tf_img.paragraphs[0]
@@ -163,15 +170,15 @@ def create_deck():
         p_role.text = "Co-Founder & Lead Engineer" if i == 0 else "Co-Founder & Systems Lead"
         p_role.font.bold = True
         p_role.font.size = Pt(13)
-        p_role.font.color.rgb = GREEN
+        p_role.font.color.rgb = BRAND_ORANGE
         
         p_desc = tf_bio.add_paragraph()
         p_desc.text = "• Undergraduate Student Engineer\n• Core Architecture & AI Tooling Lead" if i == 0 else "• Undergraduate Student Engineer\n• Systems Architecture & CI/CD Lead"
         p_desc.font.size = Pt(12)
-        p_desc.font.color.rgb = TEXT_LIGHT
+        p_desc.font.color.rgb = TEXT_SILVER
 
     # -------------------------------------------------------------
-    # SLIDE 3: Current Issues with AI Model Deployment (Dark Theme)
+    # SLIDE 3: Current Issues with AI Model Deployment
     # -------------------------------------------------------------
     slide3 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide3, "Current Issues with AI Model Deployment")
@@ -179,7 +186,7 @@ def create_deck():
     col1_bg = slide3.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.5), Inches(5.6), Inches(4.5))
     col1_bg.fill.solid()
     col1_bg.fill.fore_color.rgb = CARD_BG
-    col1_bg.line.color.rgb = BORDER_COLOR
+    col1_bg.line.color.rgb = BORDER_AMBER
     
     tf_c1 = col1_bg.text_frame
     tf_c1.word_wrap = True
@@ -187,7 +194,7 @@ def create_deck():
     p1_h.text = "ML Engineers & AI Teams"
     p1_h.font.bold = True
     p1_h.font.size = Pt(18)
-    p1_h.font.color.rgb = CYAN
+    p1_h.font.color.rgb = BRAND_ORANGE
     p1_h.alignment = PP_ALIGN.CENTER
     
     bullets_ml = [
@@ -201,12 +208,12 @@ def create_deck():
         p_b = tf_c1.add_paragraph()
         p_b.text = "• " + b
         p_b.font.size = Pt(12)
-        p_b.font.color.rgb = TEXT_LIGHT
+        p_b.font.color.rgb = TEXT_SILVER
         
     col2_bg = slide3.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.9), Inches(1.5), Inches(5.6), Inches(4.5))
     col2_bg.fill.solid()
     col2_bg.fill.fore_color.rgb = CARD_BG
-    col2_bg.line.color.rgb = BORDER_COLOR
+    col2_bg.line.color.rgb = BORDER_AMBER
     
     tf_c2 = col2_bg.text_frame
     tf_c2.word_wrap = True
@@ -214,7 +221,7 @@ def create_deck():
     p2_h.text = "Enterprise & ESG Compliance"
     p2_h.font.bold = True
     p2_h.font.size = Pt(18)
-    p2_h.font.color.rgb = CYAN
+    p2_h.font.color.rgb = GOLDEN_AMBER
     p2_h.alignment = PP_ALIGN.CENTER
     
     bullets_esg = [
@@ -228,7 +235,7 @@ def create_deck():
         p_b = tf_c2.add_paragraph()
         p_b.text = "• " + b
         p_b.font.size = Pt(12)
-        p_b.font.color.rgb = TEXT_LIGHT
+        p_b.font.color.rgb = TEXT_SILVER
 
     v_box = slide3.shapes.add_textbox(Inches(0.8), Inches(6.2), Inches(11.7), Inches(0.7))
     tf_v = v_box.text_frame
@@ -240,7 +247,7 @@ def create_deck():
     p_v.alignment = PP_ALIGN.CENTER
 
     # -------------------------------------------------------------
-    # SLIDE 4: How It Works & Business Model (Dark Theme)
+    # SLIDE 4: How It Works & Business Model
     # -------------------------------------------------------------
     slide4 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide4, "How It Works & Business Model")
@@ -260,17 +267,17 @@ def create_deck():
         p1.text = step_title
         p1.font.bold = True
         p1.font.size = Pt(14)
-        p1.font.color.rgb = GREEN
+        p1.font.color.rgb = BRAND_ORANGE
         
         p2 = tf_fl.add_paragraph()
         p2.text = step_desc + "\n"
         p2.font.size = Pt(11)
-        p2.font.color.rgb = TEXT_LIGHT
+        p2.font.color.rgb = TEXT_SILVER
         
     bm_box = slide4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.8), Inches(1.5), Inches(4.7), Inches(4.4))
     bm_box.fill.solid()
     bm_box.fill.fore_color.rgb = CARD_BG
-    bm_box.line.color.rgb = CYAN
+    bm_box.line.color.rgb = GOLDEN_AMBER
     bm_box.line.width = Pt(1.5)
     
     tf_bm = bm_box.text_frame
@@ -279,7 +286,7 @@ def create_deck():
     p_bm_title.text = "Business Model"
     p_bm_title.font.bold = True
     p_bm_title.font.size = Pt(22)
-    p_bm_title.font.color.rgb = CYAN
+    p_bm_title.font.color.rgb = BRAND_ORANGE
     p_bm_title.alignment = PP_ALIGN.CENTER
     
     bm_points = [
@@ -292,7 +299,7 @@ def create_deck():
         p_pt = tf_bm.add_paragraph()
         p_pt.text = "• " + pt
         p_pt.font.size = Pt(11)
-        p_pt.font.color.rgb = TEXT_LIGHT
+        p_pt.font.color.rgb = TEXT_SILVER
         
     tag_box = slide4.shapes.add_textbox(Inches(0.8), Inches(6.2), Inches(11.7), Inches(0.7))
     tf_tag = tag_box.text_frame
@@ -304,7 +311,7 @@ def create_deck():
     p_tag.alignment = PP_ALIGN.CENTER
 
     # -------------------------------------------------------------
-    # SLIDE 5: Core Architecture (Dark Theme)
+    # SLIDE 5: Core Architecture
     # -------------------------------------------------------------
     slide5 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide5, "Our Technical Architecture & Capabilities")
@@ -326,15 +333,15 @@ def create_deck():
         p_t.text = "• " + title + ":"
         p_t.font.bold = True
         p_t.font.size = Pt(15)
-        p_t.font.color.rgb = GREEN
+        p_t.font.color.rgb = BRAND_ORANGE
         
         p_d = tf_a.add_paragraph()
         p_d.text = "   " + desc + "\n"
         p_d.font.size = Pt(12)
-        p_d.font.color.rgb = TEXT_LIGHT
+        p_d.font.color.rgb = TEXT_SILVER
 
     # -------------------------------------------------------------
-    # SLIDE 6: Unit Economics (Dark Theme Table)
+    # SLIDE 6: Unit Economics
     # -------------------------------------------------------------
     slide6 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide6, "Unit Economics & Model Impact")
@@ -343,7 +350,7 @@ def create_deck():
     table_shape = slide6.shapes.add_table(rows, cols, Inches(0.8), Inches(1.8), Inches(11.733), Inches(4.5))
     table = table_shape.table
     
-    headers = ["Compression Strategy", "Baseline (FP32)", "CoalOmIT (INT8 / INT4)", "Impact / Explanation"]
+    headers = ["Compression Strategy", "Baseline (FP32)", "CoalØmit (INT8 / INT4)", "Impact / Explanation"]
     col_widths = [Inches(3.2), Inches(2.2), Inches(2.6), Inches(3.733)]
     for i, w in enumerate(col_widths):
         table.columns[i].width = w
@@ -356,7 +363,7 @@ def create_deck():
         p = cell.text_frame.paragraphs[0]
         p.font.bold = True
         p.font.size = Pt(13)
-        p.font.color.rgb = GREEN
+        p.font.color.rgb = BRAND_ORANGE
         p.alignment = PP_ALIGN.CENTER
         
     table_data = [
@@ -372,12 +379,12 @@ def create_deck():
             cell.text = cell_value
             p = cell.text_frame.paragraphs[0]
             p.font.size = Pt(12)
-            p.font.color.rgb = TEXT_WHITE if col_idx == 2 else TEXT_LIGHT
+            p.font.color.rgb = BRAND_ORANGE if col_idx == 2 else TEXT_SILVER
             if col_idx in [1, 2]:
                 p.alignment = PP_ALIGN.CENTER
 
     # -------------------------------------------------------------
-    # SLIDE 7: Differentiators (Dark Theme Boxes)
+    # SLIDE 7: Differentiators
     # -------------------------------------------------------------
     slide7 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide7, "Our Key Differentiators")
@@ -385,14 +392,14 @@ def create_deck():
     box_p = slide7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.6), Inches(3.0), Inches(4.5))
     box_p.fill.solid()
     box_p.fill.fore_color.rgb = CARD_BG
-    box_p.line.color.rgb = GREEN
+    box_p.line.color.rgb = BRAND_ORANGE
     box_p.line.width = Pt(2)
     tf_p_title = box_p.text_frame
     p_pt = tf_p_title.paragraphs[0]
     p_pt.text = "\n\nPRODUCT"
     p_pt.font.bold = True
     p_pt.font.size = Pt(24)
-    p_pt.font.color.rgb = GREEN
+    p_pt.font.color.rgb = BRAND_ORANGE
     p_pt.alignment = PP_ALIGN.CENTER
     
     tx_p_desc = slide7.shapes.add_textbox(Inches(4.1), Inches(1.6), Inches(8.4), Inches(2.2))
@@ -401,19 +408,19 @@ def create_deck():
     p_pd1 = tf_pd.paragraphs[0]
     p_pd1.text = "• PyTorch Native FLOP Profiling: No synthetic estimates; measures true hardware execution.\n• Regional Power Grid Database: Maps energy directly to local gCO₂/kWh in 35+ countries.\n• Zero-Code Developer Experience: Run single command `cac run model.py` on existing scripts."
     p_pd1.font.size = Pt(13)
-    p_pd1.font.color.rgb = TEXT_LIGHT
+    p_pd1.font.color.rgb = TEXT_SILVER
     
     box_s = slide7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(4.3), Inches(3.0), Inches(2.4))
     box_s.fill.solid()
     box_s.fill.fore_color.rgb = CARD_BG
-    box_s.line.color.rgb = CYAN
+    box_s.line.color.rgb = GOLDEN_AMBER
     box_s.line.width = Pt(2)
     tf_s_title = box_s.text_frame
     p_st = tf_s_title.paragraphs[0]
     p_st.text = "\nSERVICE"
     p_st.font.bold = True
     p_st.font.size = Pt(24)
-    p_st.font.color.rgb = CYAN
+    p_st.font.color.rgb = GOLDEN_AMBER
     p_st.alignment = PP_ALIGN.CENTER
     
     tx_s_desc = slide7.shapes.add_textbox(Inches(4.1), Inches(4.3), Inches(8.4), Inches(2.4))
@@ -422,13 +429,13 @@ def create_deck():
     p_sd1 = tf_sd.paragraphs[0]
     p_sd1.text = "• Automated CI/CD PR Bot: Posts trade-off comparison tables on every pull request.\n• EU CSRD Compliance Exports: Instant export of bottom-up audit logs for corporate ESG reports.\n• 100% Status & Pareto Visibility: Clear Pareto-optimal trade-offs across Accuracy, Latency, and CO₂."
     p_sd1.font.size = Pt(13)
-    p_sd1.font.color.rgb = TEXT_LIGHT
+    p_sd1.font.color.rgb = TEXT_SILVER
 
     # -------------------------------------------------------------
-    # SLIDE 8: Leveraging Technology (Dark Theme Table)
+    # SLIDE 8: Leveraging Technology
     # -------------------------------------------------------------
     slide8 = prs.slides.add_slide(blank_slide_layout)
-    add_header_footer(slide8, "Leveraging Technology — Legacy vs CoalOmIT")
+    add_header_footer(slide8, "Leveraging Technology — Legacy vs CoalØmit")
     
     r8, c8 = 6, 3
     t8_shape = slide8.shapes.add_table(r8, c8, Inches(0.8), Inches(1.5), Inches(11.733), Inches(5.0))
@@ -438,7 +445,7 @@ def create_deck():
     t8.columns[1].width = Inches(4.2)
     t8.columns[2].width = Inches(4.733)
     
-    h8 = ["Capability", "Legacy / Manual Approach", "CoalOmIT Platform"]
+    h8 = ["Capability", "Legacy / Manual Approach", "CoalØmit Platform"]
     for j, h in enumerate(h8):
         cell = t8.cell(0, j)
         cell.fill.solid()
@@ -447,7 +454,7 @@ def create_deck():
         p = cell.text_frame.paragraphs[0]
         p.font.bold = True
         p.font.size = Pt(13)
-        p.font.color.rgb = GREEN
+        p.font.color.rgb = BRAND_ORANGE
         p.alignment = PP_ALIGN.CENTER
         
     t8_data = [
@@ -465,10 +472,10 @@ def create_deck():
             cell.text = val
             p = cell.text_frame.paragraphs[0]
             p.font.size = Pt(11)
-            p.font.color.rgb = GREEN if col_j == 2 else TEXT_LIGHT
+            p.font.color.rgb = BRAND_ORANGE if col_j == 2 else TEXT_SILVER
 
     # -------------------------------------------------------------
-    # SLIDE 9: Traction & Growth (Dark Theme)
+    # SLIDE 9: Traction & Growth
     # -------------------------------------------------------------
     slide9 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide9, "Traction & Early Adoption")
@@ -476,14 +483,14 @@ def create_deck():
     c9_1 = slide9.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.6), Inches(5.6), Inches(4.8))
     c9_1.fill.solid()
     c9_1.fill.fore_color.rgb = CARD_BG
-    c9_1.line.color.rgb = BORDER_COLOR
+    c9_1.line.color.rgb = BORDER_AMBER
     tf_91 = c9_1.text_frame
     tf_91.word_wrap = True
     p91_h = tf_91.paragraphs[0]
     p91_h.text = "Developer & CLI Traction"
     p91_h.font.bold = True
     p91_h.font.size = Pt(18)
-    p91_h.font.color.rgb = CYAN
+    p91_h.font.color.rgb = BRAND_ORANGE
     p91_h.alignment = PP_ALIGN.CENTER
     
     bullets_t1 = [
@@ -497,19 +504,19 @@ def create_deck():
         p_b = tf_91.add_paragraph()
         p_b.text = "• " + b
         p_b.font.size = Pt(13)
-        p_b.font.color.rgb = TEXT_LIGHT
+        p_b.font.color.rgb = TEXT_SILVER
 
     c9_2 = slide9.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.9), Inches(1.6), Inches(5.6), Inches(4.8))
     c9_2.fill.solid()
     c9_2.fill.fore_color.rgb = CARD_BG
-    c9_2.line.color.rgb = BORDER_COLOR
+    c9_2.line.color.rgb = BORDER_AMBER
     tf_92 = c9_2.text_frame
     tf_92.word_wrap = True
     p92_h = tf_92.paragraphs[0]
     p92_h.text = "Enterprise CI/CD Traction"
     p92_h.font.bold = True
     p92_h.font.size = Pt(18)
-    p92_h.font.color.rgb = CYAN
+    p92_h.font.color.rgb = GOLDEN_AMBER
     p92_h.alignment = PP_ALIGN.CENTER
     
     bullets_t2 = [
@@ -523,10 +530,10 @@ def create_deck():
         p_b = tf_92.add_paragraph()
         p_b.text = "• " + b
         p_b.font.size = Pt(13)
-        p_b.font.color.rgb = TEXT_LIGHT
+        p_b.font.color.rgb = TEXT_SILVER
 
     # -------------------------------------------------------------
-    # SLIDE 10: Usage Patterns & Impact Metrics (Dark Theme Grid)
+    # SLIDE 10: Usage Patterns & Impact Metrics
     # -------------------------------------------------------------
     slide10 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide10, "Usage Patterns & Impact Metrics")
@@ -541,7 +548,7 @@ def create_deck():
         card = slide10.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, y, Inches(5.1), Inches(2.2))
         card.fill.solid()
         card.fill.fore_color.rgb = CARD_BG
-        card.line.color.rgb = GREEN
+        card.line.color.rgb = BRAND_ORANGE
         card.line.width = Pt(1.5)
         
         tf_m = card.text_frame
@@ -551,7 +558,7 @@ def create_deck():
         p_n.text = num
         p_n.font.bold = True
         p_n.font.size = Pt(38)
-        p_n.font.color.rgb = GREEN
+        p_n.font.color.rgb = BRAND_ORANGE
         p_n.alignment = PP_ALIGN.CENTER
         
         p_l = tf_m.add_paragraph()
@@ -564,11 +571,11 @@ def create_deck():
         p_s = tf_m.add_paragraph()
         p_s.text = subtext
         p_s.font.size = Pt(11)
-        p_s.font.color.rgb = MUTED
+        p_s.font.color.rgb = GOLDEN_AMBER
         p_s.alignment = PP_ALIGN.CENTER
 
     # -------------------------------------------------------------
-    # SLIDE 11: Repeat Usage & Retention Cohorts (Dark Theme)
+    # SLIDE 11: Repeat Usage & Retention Cohorts
     # -------------------------------------------------------------
     slide11 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide11, "Repeat Usage & Pipeline Retention")
@@ -586,7 +593,7 @@ def create_deck():
         p = cell.text_frame.paragraphs[0]
         p.font.bold = True
         p.font.size = Pt(12)
-        p.font.color.rgb = GREEN
+        p.font.color.rgb = BRAND_ORANGE
         p.alignment = PP_ALIGN.CENTER
         
     data11 = [
@@ -603,7 +610,7 @@ def create_deck():
             cell.text = val
             p = cell.text_frame.paragraphs[0]
             p.font.size = Pt(11)
-            p.font.color.rgb = TEXT_LIGHT
+            p.font.color.rgb = TEXT_SILVER
             p.alignment = PP_ALIGN.CENTER
 
     tx_ret = slide11.shapes.add_textbox(Inches(0.8), Inches(4.5), Inches(11.733), Inches(2.0))
@@ -613,16 +620,16 @@ def create_deck():
     p_r1.text = "Average % of Repos retaining GitHub Action in 2nd month : 88%"
     p_r1.font.bold = True
     p_r1.font.size = Pt(18)
-    p_r1.font.color.rgb = GREEN
+    p_r1.font.color.rgb = BRAND_ORANGE
     
     p_r2 = tf_r.add_paragraph()
     p_r2.text = "Average % of Repos retaining GitHub Action in 3rd month : 79%"
     p_r2.font.bold = True
     p_r2.font.size = Pt(18)
-    p_r2.font.color.rgb = GREEN
+    p_r2.font.color.rgb = BRAND_ORANGE
 
     # -------------------------------------------------------------
-    # SLIDE 12: Competitive Landscape (Dark Theme)
+    # SLIDE 12: Competitive Landscape
     # -------------------------------------------------------------
     slide12 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide12, "Competitive Landscape & Positioning")
@@ -635,7 +642,7 @@ def create_deck():
     t12.columns[1].width = Inches(4.2)
     t12.columns[2].width = Inches(4.533)
     
-    h12 = ["Category", "Existing Competitors", "CoalOmIT Advantage"]
+    h12 = ["Category", "Existing Competitors", "CoalØmit Advantage"]
     for j, h in enumerate(h12):
         cell = t12.cell(0, j)
         cell.fill.solid()
@@ -644,7 +651,7 @@ def create_deck():
         p = cell.text_frame.paragraphs[0]
         p.font.bold = True
         p.font.size = Pt(13)
-        p.font.color.rgb = GREEN
+        p.font.color.rgb = BRAND_ORANGE
         p.alignment = PP_ALIGN.CENTER
         
     data12 = [
@@ -660,10 +667,10 @@ def create_deck():
             cell.text = val
             p = cell.text_frame.paragraphs[0]
             p.font.size = Pt(11)
-            p.font.color.rgb = GREEN if col_j == 2 else TEXT_LIGHT
+            p.font.color.rgb = BRAND_ORANGE if col_j == 2 else TEXT_SILVER
 
     # -------------------------------------------------------------
-    # SLIDE 13: Roadmap (Dark Theme)
+    # SLIDE 13: Roadmap
     # -------------------------------------------------------------
     slide13 = prs.slides.add_slide(blank_slide_layout)
     add_header_footer(slide13, "Product & Business Roadmap")
@@ -685,7 +692,7 @@ def create_deck():
         p = cell.text_frame.paragraphs[0]
         p.font.bold = True
         p.font.size = Pt(13)
-        p.font.color.rgb = GREEN
+        p.font.color.rgb = BRAND_ORANGE
         p.alignment = PP_ALIGN.CENTER
         
     data13 = [
@@ -702,9 +709,9 @@ def create_deck():
             cell.text = val
             p = cell.text_frame.paragraphs[0]
             p.font.size = Pt(11)
-            p.font.color.rgb = TEXT_LIGHT
+            p.font.color.rgb = TEXT_SILVER
 
-    output_path = "c:\\Users\\hp\\CoalOmIT\\CoalOmIT_Pitch_Deck.pptx"
+    output_path = r"c:\Users\hp\CoalOmIT\CoalOmIT_Pitch_Deck.pptx"
     prs.save(output_path)
     print(f"Presentation saved successfully at: {output_path}")
 
