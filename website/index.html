@@ -13,16 +13,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #121212;
-      --bg2:      #1a1a1a;
+      --bg:       #080808;
+      --bg2:      #121212;
+      --orange:   #ff6e00;
+      --amber:    #d97706;
       --green:    #ff6e00;
       --cyan:     #d97706;
       --purple:   #d97706;
-      --amber:    #d97706;
-      --text:     #e5e5e5;
-      --muted:    #a0a0a0;
-      --border:   rgba(217, 119, 6, 0.25);
-      --card:     rgba(255, 255, 255, 0.03);
+      --text:     #ffffff;
+      --muted:    #999999;
+      --border:   rgba(255, 110, 0, 0.3);
+      --card:     #121212;
     }
 
     html { scroll-behavior: smooth; }
@@ -748,7 +749,7 @@
       dx: (Math.random() - 0.5) * 0.3,
       dy: (Math.random() - 0.5) * 0.3,
       alpha: Math.random() * 0.5 + 0.1,
-      color: Math.random() > 0.5 ? '0,255,136' : '0,212,255'
+      color: Math.random() > 0.5 ? '255,110,0' : '217,119,6'
     };
   }
 
