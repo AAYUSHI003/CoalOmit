@@ -1,16 +1,10 @@
-<div align="center">
+# CØ CoalØmit — REDUCE NOW SUSTAIN FOREVER
 
-# CØ CoalØmit
-### REDUCE NOW SUSTAIN FOREVER
-
-[![Live Website](https://img.shields.io/badge/🌐_Live_Website-aayushi003.github.io%2FCoalOmit-FF6E00?style=for-the-badge)](https://aayushi003.github.io/CoalOmit/)
-[![Live Presentation](https://img.shields.io/badge/📊_Interactive_Deck-Pitch_Deck-D97706?style=for-the-badge)](https://aayushi003.github.io/CoalOmit/pitch_deck.html)
-[![License](https://img.shields.io/badge/License-Apache_2.0-FF6E00?style=for-the-badge&logo=apache)](LICENSE)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.x_Native-D97706?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Live Website](https://img.shields.io/badge/%F0%9F%8C%90_Live_Website-aayushi003.github.io%2FCoalOmit-FF6E00?style=for-the-badge)](https://aayushi003.github.io/CoalOmit/)
+[![Live Presentation](https://img.shields.io/badge/%F0%9F%93%8A_Interactive_Deck-Pitch_Deck-D97706?style=for-the-badge)](https://aayushi003.github.io/CoalOmit/pitch_deck.html)
+[![License](https://img.shields.io/badge/License-Apache_2.0-FF6E00?style=for-the-badge)](LICENSE)
 
 **Quantify, Compare & Eliminate the Carbon Footprint of AI Models in Seconds**
-
-</div>
 
 ---
 

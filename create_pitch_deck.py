@@ -12,15 +12,15 @@ def create_deck():
     blank_slide_layout = prs.slide_layouts[6]
 
     # CoalØmit Screenshot Theme Colors
-    BG_DARK = RGBColor(18, 18, 18)          # #121212 (Dark Polygonal Charcoal)
-    CARD_BG = RGBColor(26, 26, 26)          # #1a1a1a (Dark Graphite Card)
-    CARD_BG_ALT = RGBColor(34, 34, 34)      # #222222 (Lighter Charcoal Card)
+    BG_DARK = RGBColor(8, 8, 8)            # #080808 (Pure Pitch Black)
+    CARD_BG = RGBColor(18, 18, 18)          # #121212 (Dark Card Surface)
+    CARD_BG_ALT = RGBColor(26, 26, 26)      # #1a1a1a (Lighter Card Surface)
     BRAND_ORANGE = RGBColor(255, 110, 0)    # #FF6E00 (CoalØmit Warm Orange)
     GOLDEN_AMBER = RGBColor(217, 119, 6)    # #D97706 (Polygon Golden Amber)
-    TEXT_WHITE = RGBColor(255, 255, 255)    # #ffffff (Primary White)
+    TEXT_WHITE = RGBColor(255, 255, 255)    # #ffffff (Primary Crisp White)
     TEXT_SILVER = RGBColor(229, 229, 229)   # #e5e5e5 (Tagline Silver)
     MUTED = RGBColor(160, 160, 160)         # Muted Gray
-    BORDER_AMBER = RGBColor(180, 90, 0)     # Amber Border Accent
+    BORDER_AMBER = RGBColor(255, 110, 0)    # Orange Border Accent
     RED_HIGHLIGHT = RGBColor(255, 85, 85)   # Warning Red
 
     def set_slide_background(slide):
